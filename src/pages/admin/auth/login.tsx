@@ -6,6 +6,7 @@ import { useLoginMutation } from 'generated';
 import { LayoutContext } from 'Layouts/Admin';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import firebase from 'lib/firebase/client';
 
 export default function Login() {
   const [login] = useLoginMutation();
@@ -21,18 +22,22 @@ export default function Login() {
     setState({ ...state, [name]: value });
   };
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    login({
-      variables: {
-        email: state.email,
-        password: state.password,
-      },
-    }).then(({ data, errors }) => {
-      if (!errors && data?.login && refetch) {
-        refetch().then(() => router.push('/admin'));
-      }
-    });
+    const firebaseSignIn = await firebase.auth().signInWithEmailAndPassword(state.email, state.password);
+
+    const idToken = await firebaseSignIn.user?.getIdToken();
+    if (idToken) {
+      login({
+        variables: {
+          idToken,
+        },
+      }).then(({ data, errors }) => {
+        if (!errors && data?.login && refetch) {
+          refetch().then(() => router.push('/admin'));
+        }
+      });
+    }
   };
 
   return (

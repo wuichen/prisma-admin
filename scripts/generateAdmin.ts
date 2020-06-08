@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { buildSettingsSchema, generatePages, generateGraphql } from '@prisma-tools/admin/dist/generateAdmin';
 
-buildSettingsSchema();
+buildSettingsSchema('./prisma/');
 
-generatePages();
+generatePages({ outPut: 'src/pages/admin/models/' });
 
-// generateGraphql();
+generateGraphql({ graphqlOutput: 'src/graphql/generated' });

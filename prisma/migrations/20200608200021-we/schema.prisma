@@ -1,5 +1,5 @@
 datasource postgresql {
-  url      = env("DATABASE_URL")
+  url = "***"
   provider = "postgresql"
 }
 
@@ -12,6 +12,7 @@ model User {
   createdAt DateTime  @default(now())
   email     String    @unique
   name      String?
+  password  String
   // @onDelete(CASCADE)
   posts     Post[]
   group     Group?    @relation(fields: [groupId], references: [id])

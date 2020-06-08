@@ -3,7 +3,7 @@
  * Do not make changes to this file directly
  */
 
-import * as Context from "../Api/context"
+import * as Context from "./src/Api/context"
 
 
 
@@ -60,7 +60,7 @@ export interface NexusGenInputs {
   }
   CommentScalarWhereInput: { // input type
     AND?: NexusGenInputs['CommentScalarWhereInput'][] | null; // [CommentScalarWhereInput!]
-    authorId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
+    authorId?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     contain?: NexusGenInputs['StringFilter'] | null; // StringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
@@ -150,7 +150,7 @@ export interface NexusGenInputs {
   CommentWhereInput: { // input type
     AND?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
     author?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-    authorId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
+    authorId?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     contain?: NexusGenInputs['StringFilter'] | null; // StringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
@@ -316,7 +316,7 @@ export interface NexusGenInputs {
   }
   PostScalarWhereInput: { // input type
     AND?: NexusGenInputs['PostScalarWhereInput'][] | null; // [PostScalarWhereInput!]
-    authorId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
+    authorId?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     comments?: NexusGenInputs['CommentFilter'] | null; // CommentFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
@@ -402,7 +402,7 @@ export interface NexusGenInputs {
   PostWhereInput: { // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null; // [PostWhereInput!]
     author?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-    authorId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
+    authorId?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     comments?: NexusGenInputs['CommentFilter'] | null; // CommentFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
@@ -461,8 +461,8 @@ export interface NexusGenInputs {
     createdAt?: any | null; // DateTime
     email: string; // String!
     group?: NexusGenInputs['GroupCreateOneWithoutUsersInput'] | null; // GroupCreateOneWithoutUsersInput
+    id: string; // String!
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostCreateManyWithoutAuthorInput'] | null; // PostCreateManyWithoutAuthorInput
   }
   UserCreateManyWithoutGroupInput: { // input type
@@ -481,16 +481,16 @@ export interface NexusGenInputs {
     createdAt?: any | null; // DateTime
     email: string; // String!
     group?: NexusGenInputs['GroupCreateOneWithoutUsersInput'] | null; // GroupCreateOneWithoutUsersInput
+    id: string; // String!
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostCreateManyWithoutAuthorInput'] | null; // PostCreateManyWithoutAuthorInput
   }
   UserCreateWithoutGroupInput: { // input type
     comments?: NexusGenInputs['CommentCreateManyWithoutAuthorInput'] | null; // CommentCreateManyWithoutAuthorInput
     createdAt?: any | null; // DateTime
     email: string; // String!
+    id: string; // String!
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostCreateManyWithoutAuthorInput'] | null; // PostCreateManyWithoutAuthorInput
   }
   UserCreateWithoutPostsInput: { // input type
@@ -498,8 +498,8 @@ export interface NexusGenInputs {
     createdAt?: any | null; // DateTime
     email: string; // String!
     group?: NexusGenInputs['GroupCreateOneWithoutUsersInput'] | null; // GroupCreateOneWithoutUsersInput
+    id: string; // String!
     name?: string | null; // String
-    password: string; // String!
   }
   UserFilter: { // input type
     every?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -512,7 +512,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     id?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     name?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
-    password?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
   }
   UserScalarWhereInput: { // input type
     AND?: NexusGenInputs['UserScalarWhereInput'][] | null; // [UserScalarWhereInput!]
@@ -520,11 +519,10 @@ export interface NexusGenInputs {
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
     groupId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
-    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     name?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     NOT?: NexusGenInputs['UserScalarWhereInput'][] | null; // [UserScalarWhereInput!]
     OR?: NexusGenInputs['UserScalarWhereInput'][] | null; // [UserScalarWhereInput!]
-    password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     posts?: NexusGenInputs['PostFilter'] | null; // PostFilter
   }
   UserUpdateInput: { // input type
@@ -532,24 +530,21 @@ export interface NexusGenInputs {
     createdAt?: any | null; // DateTime
     email?: string | null; // String
     group?: NexusGenInputs['GroupUpdateOneWithoutUsersInput'] | null; // GroupUpdateOneWithoutUsersInput
-    id?: number | null; // Int
+    id?: string | null; // String
     name?: string | null; // String
-    password?: string | null; // String
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
   }
   UserUpdateManyDataInput: { // input type
     createdAt?: any | null; // DateTime
     email?: string | null; // String
-    id?: number | null; // Int
+    id?: string | null; // String
     name?: string | null; // String
-    password?: string | null; // String
   }
   UserUpdateManyMutationInput: { // input type
     createdAt?: any | null; // DateTime
     email?: string | null; // String
-    id?: number | null; // Int
+    id?: string | null; // String
     name?: string | null; // String
-    password?: string | null; // String
   }
   UserUpdateManyWithWhereNestedInput: { // input type
     data: NexusGenInputs['UserUpdateManyDataInput']; // UserUpdateManyDataInput!
@@ -590,18 +585,16 @@ export interface NexusGenInputs {
     createdAt?: any | null; // DateTime
     email?: string | null; // String
     group?: NexusGenInputs['GroupUpdateOneWithoutUsersInput'] | null; // GroupUpdateOneWithoutUsersInput
-    id?: number | null; // Int
+    id?: string | null; // String
     name?: string | null; // String
-    password?: string | null; // String
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
   }
   UserUpdateWithoutGroupDataInput: { // input type
     comments?: NexusGenInputs['CommentUpdateManyWithoutAuthorInput'] | null; // CommentUpdateManyWithoutAuthorInput
     createdAt?: any | null; // DateTime
     email?: string | null; // String
-    id?: number | null; // Int
+    id?: string | null; // String
     name?: string | null; // String
-    password?: string | null; // String
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
   }
   UserUpdateWithoutPostsDataInput: { // input type
@@ -609,9 +602,8 @@ export interface NexusGenInputs {
     createdAt?: any | null; // DateTime
     email?: string | null; // String
     group?: NexusGenInputs['GroupUpdateOneWithoutUsersInput'] | null; // GroupUpdateOneWithoutUsersInput
-    id?: number | null; // Int
+    id?: string | null; // String
     name?: string | null; // String
-    password?: string | null; // String
   }
   UserUpsertWithWhereUniqueWithoutGroupInput: { // input type
     create: NexusGenInputs['UserCreateWithoutGroupInput']; // UserCreateWithoutGroupInput!
@@ -633,16 +625,15 @@ export interface NexusGenInputs {
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
     group?: NexusGenInputs['GroupWhereInput'] | null; // GroupWhereInput
     groupId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
-    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     name?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     OR?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
-    password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     posts?: NexusGenInputs['PostFilter'] | null; // PostFilter
   }
   UserWhereUniqueInput: { // input type
     email?: string | null; // String
-    id?: number | null; // Int
+    id?: string | null; // String
   }
 }
 
@@ -656,7 +647,7 @@ export interface NexusGenRootTypes {
     count: number; // Int!
   }
   Comment: { // root type
-    authorId?: number | null; // Int
+    authorId?: string | null; // String
     contain: string; // String!
     createdAt: any; // DateTime!
     id: number; // Int!
@@ -704,7 +695,7 @@ export interface NexusGenRootTypes {
   }
   Mutation: {};
   Post: { // root type
-    authorId?: number | null; // Int
+    authorId?: string | null; // String
     createdAt: any; // DateTime!
     id: number; // Int!
     published: boolean; // Boolean!
@@ -720,7 +711,7 @@ export interface NexusGenRootTypes {
     createdAt: any; // DateTime!
     email: string; // String!
     groupId?: number | null; // Int
-    id: number; // Int!
+    id: string; // String!
     name?: string | null; // String
   }
   String: string;
@@ -830,7 +821,7 @@ export interface NexusGenFieldTypes {
   }
   Comment: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
-    authorId: number | null; // Int
+    authorId: string | null; // String
     contain: string; // String!
     createdAt: any; // DateTime!
     id: number; // Int!
@@ -883,6 +874,10 @@ export interface NexusGenFieldTypes {
     createOneGroup: NexusGenRootTypes['Group']; // Group!
     createOnePost: NexusGenRootTypes['Post']; // Post!
     createOneUser: NexusGenRootTypes['User']; // User!
+    deleteManyComment: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    deleteManyGroup: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    deleteManyPost: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    deleteManyUser: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteOneComment: NexusGenRootTypes['Comment'] | null; // Comment
     deleteOneGroup: NexusGenRootTypes['Group'] | null; // Group
     deleteOnePost: NexusGenRootTypes['Post'] | null; // Post
@@ -891,12 +886,15 @@ export interface NexusGenFieldTypes {
     logout: boolean; // Boolean!
     signup: NexusGenRootTypes['User']; // User!
     updateField: NexusGenRootTypes['Field']; // Field!
+    updateManyComment: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    updateManyGroup: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    updateManyPost: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    updateManyUser: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateModel: NexusGenRootTypes['Model']; // Model!
     updateOneComment: NexusGenRootTypes['Comment']; // Comment!
     updateOneGroup: NexusGenRootTypes['Group']; // Group!
     updateOnePost: NexusGenRootTypes['Post']; // Post!
     updateOneUser: NexusGenRootTypes['User']; // User!
-    updatePassword: boolean; // Boolean!
     upsertOneComment: NexusGenRootTypes['Comment']; // Comment!
     upsertOneGroup: NexusGenRootTypes['Group']; // Group!
     upsertOnePost: NexusGenRootTypes['Post']; // Post!
@@ -904,7 +902,7 @@ export interface NexusGenFieldTypes {
   }
   Post: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
-    authorId: number | null; // Int
+    authorId: string | null; // String
     comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
     createdAt: any; // DateTime!
     id: number; // Int!
@@ -938,7 +936,7 @@ export interface NexusGenFieldTypes {
     email: string; // String!
     group: NexusGenRootTypes['Group'] | null; // Group
     groupId: number | null; // Int
-    id: number; // Int!
+    id: string; // String!
     name: string | null; // String
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
   }
@@ -967,6 +965,18 @@ export interface NexusGenArgTypes {
     createOneUser: { // args
       data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
     }
+    deleteManyComment: { // args
+      where?: NexusGenInputs['CommentWhereInput'] | null; // CommentWhereInput
+    }
+    deleteManyGroup: { // args
+      where?: NexusGenInputs['GroupWhereInput'] | null; // GroupWhereInput
+    }
+    deleteManyPost: { // args
+      where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
+    }
+    deleteManyUser: { // args
+      where?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    }
     deleteOneComment: { // args
       where: NexusGenInputs['CommentWhereUniqueInput']; // CommentWhereUniqueInput!
     }
@@ -980,18 +990,31 @@ export interface NexusGenArgTypes {
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
     }
     login: { // args
-      email: string; // String!
-      password: string; // String!
+      idToken: string; // String!
     }
     signup: { // args
-      email: string; // String!
-      name?: string | null; // String
-      password: string; // String!
+      idToken: string; // String!
     }
     updateField: { // args
       data?: NexusGenInputs['UpdateFieldInput'] | null; // UpdateFieldInput
       id: string; // String!
       modelId: string; // String!
+    }
+    updateManyComment: { // args
+      data: NexusGenInputs['CommentUpdateManyMutationInput']; // CommentUpdateManyMutationInput!
+      where?: NexusGenInputs['CommentWhereInput'] | null; // CommentWhereInput
+    }
+    updateManyGroup: { // args
+      data: NexusGenInputs['GroupUpdateManyMutationInput']; // GroupUpdateManyMutationInput!
+      where?: NexusGenInputs['GroupWhereInput'] | null; // GroupWhereInput
+    }
+    updateManyPost: { // args
+      data: NexusGenInputs['PostUpdateManyMutationInput']; // PostUpdateManyMutationInput!
+      where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
+    }
+    updateManyUser: { // args
+      data: NexusGenInputs['UserUpdateManyMutationInput']; // UserUpdateManyMutationInput!
+      where?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     }
     updateModel: { // args
       data?: NexusGenInputs['UpdateModelInput'] | null; // UpdateModelInput
@@ -1012,10 +1035,6 @@ export interface NexusGenArgTypes {
     updateOneUser: { // args
       data: NexusGenInputs['UserUpdateInput']; // UserUpdateInput!
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
-    }
-    updatePassword: { // args
-      currentPassword: string; // String!
-      password: string; // String!
     }
     upsertOneComment: { // args
       create: NexusGenInputs['CommentCreateInput']; // CommentCreateInput!

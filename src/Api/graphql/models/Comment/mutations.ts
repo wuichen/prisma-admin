@@ -84,5 +84,36 @@ export const CommentMutations = extendType({
         })
       },
     })
+
+    t.field('deleteManyComment', {
+      type: 'BatchPayload',
+      args: {
+        where: arg({
+          type: 'CommentWhereInput',
+          nullable: true,
+        }),
+      },
+      resolve: async (_parent, { where }, { prisma }) => {
+        await prisma.onDelete({ model: 'Comment', where })
+        return prisma.comment.deleteMany({ where })
+      },
+    })
+
+    t.field('updateManyComment', {
+      type: 'BatchPayload',
+      args: {
+        where: arg({
+          type: 'CommentWhereInput',
+          nullable: true,
+        }),
+        data: arg({
+          type: 'CommentUpdateManyMutationInput',
+          nullable: false,
+        }),
+      },
+      resolve(_parent, args, { prisma }) {
+        return prisma.comment.updateMany(args)
+      },
+    })
   },
 })

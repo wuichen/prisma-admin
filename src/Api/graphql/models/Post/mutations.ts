@@ -84,5 +84,36 @@ export const PostMutations = extendType({
         })
       },
     })
+
+    t.field('deleteManyPost', {
+      type: 'BatchPayload',
+      args: {
+        where: arg({
+          type: 'PostWhereInput',
+          nullable: true,
+        }),
+      },
+      resolve: async (_parent, { where }, { prisma }) => {
+        await prisma.onDelete({ model: 'Post', where })
+        return prisma.post.deleteMany({ where })
+      },
+    })
+
+    t.field('updateManyPost', {
+      type: 'BatchPayload',
+      args: {
+        where: arg({
+          type: 'PostWhereInput',
+          nullable: true,
+        }),
+        data: arg({
+          type: 'PostUpdateManyMutationInput',
+          nullable: false,
+        }),
+      },
+      resolve(_parent, args, { prisma }) {
+        return prisma.post.updateMany(args)
+      },
+    })
   },
 })

@@ -13,7 +13,7 @@ input BooleanFilter {
 
 type Comment {
   author: User
-  authorId: Int
+  authorId: String
   contain: String!
   createdAt: DateTime!
   id: Int!
@@ -71,7 +71,7 @@ input CommentOrderByInput {
 
 input CommentScalarWhereInput {
   AND: [CommentScalarWhereInput!]
-  authorId: NullableIntFilter
+  authorId: NullableStringFilter
   contain: StringFilter
   createdAt: DateTimeFilter
   id: IntFilter
@@ -174,7 +174,7 @@ input CommentUpsertWithWhereUniqueWithoutPostInput {
 input CommentWhereInput {
   AND: [CommentWhereInput!]
   author: UserWhereInput
-  authorId: NullableIntFilter
+  authorId: NullableStringFilter
   contain: StringFilter
   createdAt: DateTimeFilter
   id: IntFilter
@@ -345,20 +345,27 @@ type Mutation {
   createOneGroup(data: GroupCreateInput!): Group!
   createOnePost(data: PostCreateInput!): Post!
   createOneUser(data: UserCreateInput!): User!
+  deleteManyComment(where: CommentWhereInput): BatchPayload!
+  deleteManyGroup(where: GroupWhereInput): BatchPayload!
+  deleteManyPost(where: PostWhereInput): BatchPayload!
+  deleteManyUser(where: UserWhereInput): BatchPayload!
   deleteOneComment(where: CommentWhereUniqueInput!): Comment
   deleteOneGroup(where: GroupWhereUniqueInput!): Group
   deleteOnePost(where: PostWhereUniqueInput!): Post
   deleteOneUser(where: UserWhereUniqueInput!): User
-  login(email: String!, password: String!): User
+  login(idToken: String!): User
   logout: Boolean!
-  signup(email: String!, name: String, password: String!): User!
+  signup(idToken: String!): User!
   updateField(data: UpdateFieldInput, id: String!, modelId: String!): Field!
+  updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
+  updateManyGroup(data: GroupUpdateManyMutationInput!, where: GroupWhereInput): BatchPayload!
+  updateManyPost(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
+  updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateModel(data: UpdateModelInput, id: String!): Model!
   updateOneComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
   updateOneGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
   updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
-  updatePassword(currentPassword: String!, password: String!): Boolean!
   upsertOneComment(create: CommentCreateInput!, update: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
   upsertOneGroup(create: GroupCreateInput!, update: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
   upsertOnePost(create: PostCreateInput!, update: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
@@ -397,7 +404,7 @@ enum OrderByArg {
 
 type Post {
   author: User
-  authorId: Int
+  authorId: String
   comments(cursor: CommentWhereUniqueInput, orderBy: CommentOrderByInput, skip: Int, take: Int, where: CommentWhereInput): [Comment!]!
   createdAt: DateTime!
   id: Int!
@@ -458,7 +465,7 @@ input PostOrderByInput {
 
 input PostScalarWhereInput {
   AND: [PostScalarWhereInput!]
-  authorId: NullableIntFilter
+  authorId: NullableStringFilter
   comments: CommentFilter
   createdAt: DateTimeFilter
   id: IntFilter
@@ -556,7 +563,7 @@ input PostUpsertWithWhereUniqueWithoutAuthorInput {
 input PostWhereInput {
   AND: [PostWhereInput!]
   author: UserWhereInput
-  authorId: NullableIntFilter
+  authorId: NullableStringFilter
   comments: CommentFilter
   createdAt: DateTimeFilter
   id: IntFilter
@@ -643,7 +650,7 @@ type User {
   email: String!
   group: Group
   groupId: Int
-  id: Int!
+  id: String!
   name: String
   posts(cursor: PostWhereUniqueInput, orderBy: PostOrderByInput, skip: Int, take: Int, where: PostWhereInput): [Post!]!
 }
@@ -653,8 +660,8 @@ input UserCreateInput {
   createdAt: DateTime
   email: String!
   group: GroupCreateOneWithoutUsersInput
+  id: String!
   name: String
-  password: String!
   posts: PostCreateManyWithoutAuthorInput
 }
 
@@ -677,8 +684,8 @@ input UserCreateWithoutCommentsInput {
   createdAt: DateTime
   email: String!
   group: GroupCreateOneWithoutUsersInput
+  id: String!
   name: String
-  password: String!
   posts: PostCreateManyWithoutAuthorInput
 }
 
@@ -686,8 +693,8 @@ input UserCreateWithoutGroupInput {
   comments: CommentCreateManyWithoutAuthorInput
   createdAt: DateTime
   email: String!
+  id: String!
   name: String
-  password: String!
   posts: PostCreateManyWithoutAuthorInput
 }
 
@@ -696,8 +703,8 @@ input UserCreateWithoutPostsInput {
   createdAt: DateTime
   email: String!
   group: GroupCreateOneWithoutUsersInput
+  id: String!
   name: String
-  password: String!
 }
 
 input UserFilter {
@@ -712,7 +719,6 @@ input UserOrderByInput {
   groupId: OrderByArg
   id: OrderByArg
   name: OrderByArg
-  password: OrderByArg
 }
 
 input UserScalarWhereInput {
@@ -721,11 +727,10 @@ input UserScalarWhereInput {
   createdAt: DateTimeFilter
   email: StringFilter
   groupId: NullableIntFilter
-  id: IntFilter
+  id: StringFilter
   name: NullableStringFilter
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
-  password: StringFilter
   posts: PostFilter
 }
 
@@ -734,26 +739,23 @@ input UserUpdateInput {
   createdAt: DateTime
   email: String
   group: GroupUpdateOneWithoutUsersInput
-  id: Int
+  id: String
   name: String
-  password: String
   posts: PostUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateManyDataInput {
   createdAt: DateTime
   email: String
-  id: Int
+  id: String
   name: String
-  password: String
 }
 
 input UserUpdateManyMutationInput {
   createdAt: DateTime
   email: String
-  id: Int
+  id: String
   name: String
-  password: String
 }
 
 input UserUpdateManyWithoutGroupInput {
@@ -795,9 +797,8 @@ input UserUpdateWithoutCommentsDataInput {
   createdAt: DateTime
   email: String
   group: GroupUpdateOneWithoutUsersInput
-  id: Int
+  id: String
   name: String
-  password: String
   posts: PostUpdateManyWithoutAuthorInput
 }
 
@@ -805,9 +806,8 @@ input UserUpdateWithoutGroupDataInput {
   comments: CommentUpdateManyWithoutAuthorInput
   createdAt: DateTime
   email: String
-  id: Int
+  id: String
   name: String
-  password: String
   posts: PostUpdateManyWithoutAuthorInput
 }
 
@@ -816,9 +816,8 @@ input UserUpdateWithoutPostsDataInput {
   createdAt: DateTime
   email: String
   group: GroupUpdateOneWithoutUsersInput
-  id: Int
+  id: String
   name: String
-  password: String
 }
 
 input UserUpdateWithWhereUniqueWithoutGroupInput {
@@ -849,15 +848,14 @@ input UserWhereInput {
   email: StringFilter
   group: GroupWhereInput
   groupId: NullableIntFilter
-  id: IntFilter
+  id: StringFilter
   name: NullableStringFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  password: StringFilter
   posts: PostFilter
 }
 
 input UserWhereUniqueInput {
   email: String
-  id: Int
+  id: String
 }

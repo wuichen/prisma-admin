@@ -13,7 +13,7 @@ export const Post = objectType({
         return parent['author']
       },
     })
-    t.int('authorId', { nullable: true })
+    t.string('authorId', { nullable: true })
     t.field('comments', {
       nullable: false,
       list: [true],

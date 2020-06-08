@@ -20,7 +20,7 @@ export const Comment = objectType({
         return parent['author']
       },
     })
-    t.int('authorId', { nullable: true })
+    t.string('authorId', { nullable: true })
     t.field('createdAt', { nullable: false, type: 'DateTime' })
     t.field('updatedAt', { nullable: false, type: 'DateTime' })
   },

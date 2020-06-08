@@ -1,9 +1,4 @@
-import {
-  enumType,
-  scalarType,
-  inputObjectType,
-  objectType,
-} from '@nexus/schema'
+import { enumType, scalarType, inputObjectType, objectType } from '@nexus/schema'
 
 export const DateTime = scalarType({
   name: 'DateTime',
@@ -37,7 +32,7 @@ export const CommentWhereInput = inputObjectType({
     t.field('id', { type: 'IntFilter' })
     t.field('contain', { type: 'StringFilter' })
     t.field('postId', { type: 'IntFilter' })
-    t.field('authorId', { type: 'NullableIntFilter' })
+    t.field('authorId', { type: 'NullableStringFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('AND', { type: 'CommentWhereInput', list: true })
@@ -54,7 +49,7 @@ export const PostWhereInput = inputObjectType({
     t.field('id', { type: 'IntFilter' })
     t.field('published', { type: 'BooleanFilter' })
     t.field('title', { type: 'StringFilter' })
-    t.field('authorId', { type: 'NullableIntFilter' })
+    t.field('authorId', { type: 'NullableStringFilter' })
     t.field('comments', { type: 'CommentFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
@@ -82,11 +77,10 @@ export const GroupWhereInput = inputObjectType({
 export const UserWhereInput = inputObjectType({
   name: 'UserWhereInput',
   definition(t) {
-    t.field('id', { type: 'IntFilter' })
+    t.field('id', { type: 'StringFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('email', { type: 'StringFilter' })
     t.field('name', { type: 'NullableStringFilter' })
-    t.field('password', { type: 'StringFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
     t.field('comments', { type: 'CommentFilter' })
@@ -100,7 +94,7 @@ export const UserWhereInput = inputObjectType({
 export const UserWhereUniqueInput = inputObjectType({
   name: 'UserWhereUniqueInput',
   definition(t) {
-    t.field('id', { type: 'Int' })
+    t.field('id', { type: 'String' })
     t.field('email', { type: 'String' })
   },
 })
@@ -146,10 +140,10 @@ export const GroupCreateOneWithoutUsersInput = inputObjectType({
 export const UserCreateWithoutCommentsInput = inputObjectType({
   name: 'UserCreateWithoutCommentsInput',
   definition(t) {
+    t.field('id', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String', nullable: false })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
   },
@@ -203,10 +197,10 @@ export const PostCreateManyWithoutAuthorInput = inputObjectType({
 export const UserCreateWithoutPostsInput = inputObjectType({
   name: 'UserCreateWithoutPostsInput',
   definition(t) {
+    t.field('id', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String', nullable: false })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String', nullable: false })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
     t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
@@ -263,10 +257,10 @@ export const CommentCreateManyWithoutAuthorInput = inputObjectType({
 export const UserCreateInput = inputObjectType({
   name: 'UserCreateInput',
   definition(t) {
+    t.field('id', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String', nullable: false })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
     t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
@@ -309,11 +303,10 @@ export const GroupUpdateOneWithoutUsersInput = inputObjectType({
 export const UserUpdateWithoutCommentsDataInput = inputObjectType({
   name: 'UserUpdateWithoutCommentsDataInput',
   definition(t) {
-    t.field('id', { type: 'Int' })
+    t.field('id', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
   },
@@ -373,7 +366,7 @@ export const CommentScalarWhereInput = inputObjectType({
     t.field('id', { type: 'IntFilter' })
     t.field('contain', { type: 'StringFilter' })
     t.field('postId', { type: 'IntFilter' })
-    t.field('authorId', { type: 'NullableIntFilter' })
+    t.field('authorId', { type: 'NullableStringFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('AND', { type: 'CommentScalarWhereInput', list: true })
@@ -468,7 +461,7 @@ export const PostScalarWhereInput = inputObjectType({
     t.field('id', { type: 'IntFilter' })
     t.field('published', { type: 'BooleanFilter' })
     t.field('title', { type: 'StringFilter' })
-    t.field('authorId', { type: 'NullableIntFilter' })
+    t.field('authorId', { type: 'NullableStringFilter' })
     t.field('comments', { type: 'CommentFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
@@ -536,11 +529,10 @@ export const PostUpdateManyWithoutAuthorInput = inputObjectType({
 export const UserUpdateWithoutPostsDataInput = inputObjectType({
   name: 'UserUpdateWithoutPostsDataInput',
   definition(t) {
-    t.field('id', { type: 'Int' })
+    t.field('id', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
     t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
@@ -669,11 +661,10 @@ export const CommentUpdateManyWithoutAuthorInput = inputObjectType({
 export const UserUpdateInput = inputObjectType({
   name: 'UserUpdateInput',
   definition(t) {
-    t.field('id', { type: 'Int' })
+    t.field('id', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
     t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
@@ -683,11 +674,10 @@ export const UserUpdateInput = inputObjectType({
 export const UserUpdateManyMutationInput = inputObjectType({
   name: 'UserUpdateManyMutationInput',
   definition(t) {
-    t.field('id', { type: 'Int' })
+    t.field('id', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String' })
   },
 })
 
@@ -766,10 +756,10 @@ export const CommentUpdateManyMutationInput = inputObjectType({
 export const UserCreateWithoutGroupInput = inputObjectType({
   name: 'UserCreateWithoutGroupInput',
   definition(t) {
+    t.field('id', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String', nullable: false })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
@@ -796,11 +786,10 @@ export const GroupCreateInput = inputObjectType({
 export const UserUpdateWithoutGroupDataInput = inputObjectType({
   name: 'UserUpdateWithoutGroupDataInput',
   definition(t) {
-    t.field('id', { type: 'Int' })
+    t.field('id', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
@@ -820,11 +809,10 @@ export const UserUpdateWithWhereUniqueWithoutGroupInput = inputObjectType({
 export const UserScalarWhereInput = inputObjectType({
   name: 'UserScalarWhereInput',
   definition(t) {
-    t.field('id', { type: 'IntFilter' })
+    t.field('id', { type: 'StringFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('email', { type: 'StringFilter' })
     t.field('name', { type: 'NullableStringFilter' })
-    t.field('password', { type: 'StringFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
     t.field('comments', { type: 'CommentFilter' })
@@ -837,11 +825,10 @@ export const UserScalarWhereInput = inputObjectType({
 export const UserUpdateManyDataInput = inputObjectType({
   name: 'UserUpdateManyDataInput',
   definition(t) {
-    t.field('id', { type: 'Int' })
+    t.field('id', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
-    t.field('password', { type: 'String' })
   },
 })
 
@@ -941,17 +928,20 @@ export const StringFilter = inputObjectType({
   },
 })
 
-export const NullableIntFilter = inputObjectType({
-  name: 'NullableIntFilter',
+export const NullableStringFilter = inputObjectType({
+  name: 'NullableStringFilter',
   definition(t) {
-    t.field('equals', { type: 'Int' })
-    t.field('not', { type: 'Int' })
-    t.field('in', { type: 'Int', list: true })
-    t.field('notIn', { type: 'Int', list: true })
-    t.field('lt', { type: 'Int' })
-    t.field('lte', { type: 'Int' })
-    t.field('gt', { type: 'Int' })
-    t.field('gte', { type: 'Int' })
+    t.field('equals', { type: 'String' })
+    t.field('not', { type: 'String' })
+    t.field('in', { type: 'String', list: true })
+    t.field('notIn', { type: 'String', list: true })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
   },
 })
 
@@ -995,29 +985,26 @@ export const UserFilter = inputObjectType({
   },
 })
 
-export const NullableStringFilter = inputObjectType({
-  name: 'NullableStringFilter',
-  definition(t) {
-    t.field('equals', { type: 'String' })
-    t.field('not', { type: 'String' })
-    t.field('in', { type: 'String', list: true })
-    t.field('notIn', { type: 'String', list: true })
-    t.field('lt', { type: 'String' })
-    t.field('lte', { type: 'String' })
-    t.field('gt', { type: 'String' })
-    t.field('gte', { type: 'String' })
-    t.field('contains', { type: 'String' })
-    t.field('startsWith', { type: 'String' })
-    t.field('endsWith', { type: 'String' })
-  },
-})
-
 export const PostFilter = inputObjectType({
   name: 'PostFilter',
   definition(t) {
     t.field('every', { type: 'PostWhereInput' })
     t.field('some', { type: 'PostWhereInput' })
     t.field('none', { type: 'PostWhereInput' })
+  },
+})
+
+export const NullableIntFilter = inputObjectType({
+  name: 'NullableIntFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.field('not', { type: 'Int' })
+    t.field('in', { type: 'Int', list: true })
+    t.field('notIn', { type: 'Int', list: true })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
   },
 })
 
@@ -1028,7 +1015,6 @@ export const UserOrderByInput = inputObjectType({
     t.field('createdAt', { type: 'OrderByArg' })
     t.field('email', { type: 'OrderByArg' })
     t.field('name', { type: 'OrderByArg' })
-    t.field('password', { type: 'OrderByArg' })
     t.field('groupId', { type: 'OrderByArg' })
   },
 })

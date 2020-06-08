@@ -7,6 +7,7 @@ import { useSignupMutation } from 'generated';
 import { LayoutContext } from 'Layouts/Admin';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import firebase from 'lib/firebase/client';
 
 export default function Register() {
   const { refetch } = useContext(LayoutContext);
@@ -32,19 +33,21 @@ export default function Register() {
     }
   });
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signup({
-      variables: {
-        email: state.email,
-        password: state.password,
-        name: state.name,
-      },
-    }).then(({ data, errors }) => {
-      if (!errors && data?.signup && refetch) {
-        refetch().then(() => router.push('/admin'));
-      }
-    });
+    const firebaseSignUp = await firebase.auth().createUserWithEmailAndPassword(state.email, state.password);
+    const idToken = await firebaseSignUp.user?.getIdToken();
+    if (idToken) {
+      signup({
+        variables: {
+          idToken,
+        },
+      }).then(({ data, errors }) => {
+        if (!errors && data?.signup && refetch) {
+          refetch().then(() => router.push('/admin'));
+        }
+      });
+    }
   };
 
   return (

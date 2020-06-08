@@ -8,5 +8,5 @@ createTypes({
   excludeFieldsByModel: {
     User: ['password'],
   },
-  excludeQueriesAndMutations: ['deleteMany', 'updateMany'],
+  // excludeQueriesAndMutations: ['deleteMany', 'updateMany'],
 });

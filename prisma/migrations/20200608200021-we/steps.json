@@ -3,25 +3,25 @@
   "steps": [
     {
       "tag": "CreateSource",
-      "source": "db"
+      "source": "postgresql"
     },
     {
       "tag": "CreateArgument",
       "location": {
         "tag": "Source",
-        "source": "db"
+        "source": "postgresql"
       },
       "argument": "url",
-      "value": "\"file:./dev.db\""
+      "value": "env(\"DATABASE_URL\")"
     },
     {
       "tag": "CreateArgument",
       "location": {
         "tag": "Source",
-        "source": "db"
+        "source": "postgresql"
       },
       "argument": "provider",
-      "value": "\"sqlite\""
+      "value": "\"postgresql\""
     },
     {
       "tag": "CreateModel",
@@ -31,33 +31,8 @@
       "tag": "CreateField",
       "model": "User",
       "field": "id",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "id"
-        },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "id"
-        },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
     },
     {
       "tag": "CreateDirective",
@@ -195,6 +170,13 @@
       "arity": "Optional"
     },
     {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "comments",
+      "type": "Comment",
+      "arity": "List"
+    },
+    {
       "tag": "CreateModel",
       "model": "Post"
     },
@@ -330,7 +312,7 @@
       "tag": "CreateField",
       "model": "Post",
       "field": "authorId",
-      "type": "Int",
+      "type": "String",
       "arity": "Optional"
     },
     {
@@ -547,7 +529,7 @@
       "tag": "CreateField",
       "model": "Comment",
       "field": "authorId",
-      "type": "Int",
+      "type": "String",
       "arity": "Optional"
     },
     {
@@ -657,13 +639,6 @@
     {
       "tag": "CreateField",
       "model": "Group",
-      "field": "users",
-      "type": "User",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Group",
       "field": "createdAt",
       "type": "DateTime",
       "arity": "Required"
@@ -710,6 +685,13 @@
         },
         "directive": "updatedAt"
       }
+    },
+    {
+      "tag": "CreateField",
+      "model": "Group",
+      "field": "users",
+      "type": "User",
+      "arity": "List"
     }
   ]
 }
