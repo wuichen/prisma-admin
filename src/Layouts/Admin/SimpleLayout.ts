@@ -11,6 +11,12 @@ ${({ theme }) => css`
     flex: 0.15 !important;
   }
 
+  .shop-layout {
+    .main-content {
+      padding: 0rem;
+    }
+  }
+
   .auth-layout {
     .main-content {
       padding: 2.5rem;

@@ -5488,6 +5488,9 @@ export interface NexusGenRootTypes {
     quantity: number; // Int!
     weight?: string | null; // String
   }
+  Payment: { // root type
+    status: string; // String!
+  }
   Platform: { // root type
     bannerImg?: string | null; // String
     countryId?: number | null; // Int
@@ -5519,6 +5522,11 @@ export interface NexusGenRootTypes {
     type: string; // String!
     unit?: string | null; // String
     width?: number | null; // Float
+  }
+  ProductResponse: { // root type
+    hasMore: boolean; // Boolean!
+    items: NexusGenRootTypes['Product'][]; // [Product!]!
+    total: number; // Int!
   }
   Query: {};
   Review: { // root type
@@ -5563,6 +5571,11 @@ export interface NexusGenRootTypes {
     token?: string | null; // String
     username?: string | null; // String
     walletId?: string | null; // String
+  }
+  Vendors: { // root type
+    hasMore: boolean; // Boolean!
+    items?: NexusGenRootTypes['Company'][] | null; // [Company!]
+    totalCount?: number | null; // Int
   }
   String: string;
   Int: number;
@@ -6290,6 +6303,10 @@ export interface NexusGenFieldTypes {
     update: boolean; // Boolean!
   }
   Mutation: { // field return type
+    addOrder: NexusGenRootTypes['Order']; // Order!
+    addPaymentCard: NexusGenRootTypes['User']; // User!
+    applyCoupon: NexusGenRootTypes['Coupon']; // Coupon!
+    charge: NexusGenRootTypes['Payment']; // Payment!
     createOneAddress: NexusGenRootTypes['Address']; // Address!
     createOneCard: NexusGenRootTypes['Card']; // Card!
     createOneCategory: NexusGenRootTypes['Category']; // Category!
@@ -6307,6 +6324,8 @@ export interface NexusGenFieldTypes {
     createOneReview: NexusGenRootTypes['Review']; // Review!
     createOneStaff: NexusGenRootTypes['Staff']; // Staff!
     createOneUser: NexusGenRootTypes['User']; // User!
+    deleteAddress: NexusGenRootTypes['User']; // User!
+    deleteContact: NexusGenRootTypes['User']; // User!
     deleteManyAddress: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteManyCard: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteManyCategory: NexusGenRootTypes['BatchPayload']; // BatchPayload!
@@ -6341,9 +6360,12 @@ export interface NexusGenFieldTypes {
     deleteOneReview: NexusGenRootTypes['Review'] | null; // Review
     deleteOneStaff: NexusGenRootTypes['Staff'] | null; // Staff
     deleteOneUser: NexusGenRootTypes['User'] | null; // User
+    deletePaymentCard: NexusGenRootTypes['User']; // User!
     login: NexusGenRootTypes['User'] | null; // User
     logout: boolean; // Boolean!
     signup: NexusGenRootTypes['User']; // User!
+    updateAddress: NexusGenRootTypes['User']; // User!
+    updateContact: NexusGenRootTypes['User']; // User!
     updateField: NexusGenRootTypes['Field']; // Field!
     updateManyAddress: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyCard: NexusGenRootTypes['BatchPayload']; // BatchPayload!
@@ -6362,6 +6384,7 @@ export interface NexusGenFieldTypes {
     updateManyReview: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyStaff: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyUser: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    updateMe: NexusGenRootTypes['User']; // User!
     updateModel: NexusGenRootTypes['Model']; // Model!
     updateOneAddress: NexusGenRootTypes['Address']; // Address!
     updateOneCard: NexusGenRootTypes['Card']; // Card!
@@ -6435,6 +6458,9 @@ export interface NexusGenFieldTypes {
     quantity: number; // Int!
     weight: string | null; // String
   }
+  Payment: { // field return type
+    status: string; // String!
+  }
   Platform: { // field return type
     bannerImg: string | null; // String
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
@@ -6475,7 +6501,15 @@ export interface NexusGenFieldTypes {
     unit: string | null; // String
     width: number | null; // Float
   }
+  ProductResponse: { // field return type
+    hasMore: boolean; // Boolean!
+    items: NexusGenRootTypes['Product'][]; // [Product!]!
+    total: number; // Int!
+  }
   Query: { // field return type
+    categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    category: NexusGenRootTypes['Category']; // Category!
+    coupons: NexusGenRootTypes['Coupon'][]; // [Coupon!]!
     findManyAddress: NexusGenRootTypes['Address'][] | null; // [Address!]
     findManyAddressCount: number; // Int!
     findManyCard: NexusGenRootTypes['Card'][] | null; // [Card!]
@@ -6529,6 +6563,13 @@ export interface NexusGenFieldTypes {
     findOneUser: NexusGenRootTypes['User'] | null; // User
     getSchema: NexusGenRootTypes['Schema']; // Schema!
     me: NexusGenRootTypes['User'] | null; // User
+    order: NexusGenRootTypes['Order']; // Order!
+    orders: NexusGenRootTypes['Order'][]; // [Order!]!
+    product: NexusGenRootTypes['Product']; // Product!
+    products: NexusGenRootTypes['ProductResponse']; // ProductResponse!
+    relatedProducts: NexusGenRootTypes['Product'][]; // [Product!]!
+    vendor: NexusGenRootTypes['Company']; // Company!
+    vendors: NexusGenRootTypes['Vendors']; // Vendors!
   }
   Review: { // field return type
     comment: string | null; // String
@@ -6586,6 +6627,11 @@ export interface NexusGenFieldTypes {
     token: string | null; // String
     username: string | null; // String
     walletId: string | null; // String
+  }
+  Vendors: { // field return type
+    hasMore: boolean; // Boolean!
+    items: NexusGenRootTypes['Company'][] | null; // [Company!]
+    totalCount: number | null; // Int
   }
 }
 
@@ -6722,6 +6768,18 @@ export interface NexusGenArgTypes {
     }
   }
   Mutation: {
+    addOrder: { // args
+      orderInput: string; // String!
+    }
+    addPaymentCard: { // args
+      cardInput: string; // String!
+    }
+    applyCoupon: { // args
+      code: string; // String!
+    }
+    charge: { // args
+      paymentInput: string; // String!
+    }
     createOneAddress: { // args
       data: NexusGenInputs['AddressCreateInput']; // AddressCreateInput!
     }
@@ -6772,6 +6830,12 @@ export interface NexusGenArgTypes {
     }
     createOneUser: { // args
       data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
+    }
+    deleteAddress: { // args
+      addressId: string; // String!
+    }
+    deleteContact: { // args
+      contactId: string; // String!
     }
     deleteManyAddress: { // args
       where?: NexusGenInputs['AddressWhereInput'] | null; // AddressWhereInput
@@ -6875,11 +6939,20 @@ export interface NexusGenArgTypes {
     deleteOneUser: { // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
     }
+    deletePaymentCard: { // args
+      cardId: string; // String!
+    }
     login: { // args
       idToken: string; // String!
     }
     signup: { // args
       idToken: string; // String!
+    }
+    updateAddress: { // args
+      addressInput: string; // String!
+    }
+    updateContact: { // args
+      contactInput: string; // String!
     }
     updateField: { // args
       data?: NexusGenInputs['UpdateFieldInput'] | null; // UpdateFieldInput
@@ -6953,6 +7026,9 @@ export interface NexusGenArgTypes {
     updateManyUser: { // args
       data: NexusGenInputs['UserUpdateManyMutationInput']; // UserUpdateManyMutationInput!
       where?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    }
+    updateMe: { // args
+      meInput: string; // String!
     }
     updateModel: { // args
       data?: NexusGenInputs['UpdateModelInput'] | null; // UpdateModelInput
@@ -7175,6 +7251,12 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    categories: { // args
+      type: string; // String!
+    }
+    category: { // args
+      id: number; // Int!
+    }
     findManyAddress: { // args
       cursor?: NexusGenInputs['AddressWhereUniqueInput'] | null; // AddressWhereUniqueInput
       orderBy?: NexusGenInputs['AddressOrderByInput'] | null; // AddressOrderByInput
@@ -7464,6 +7546,36 @@ export interface NexusGenArgTypes {
     findOneUser: { // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
     }
+    order: { // args
+      id: number; // Int!
+    }
+    orders: { // args
+      limit?: number | null; // Int
+    }
+    product: { // args
+      slug: string; // String!
+    }
+    products: { // args
+      category?: string | null; // String
+      limit?: number | null; // Int
+      offset?: number | null; // Int
+      text?: string | null; // String
+      type?: string | null; // String
+    }
+    relatedProducts: { // args
+      slug: string; // String!
+      type?: string | null; // String
+    }
+    vendor: { // args
+      slug: string; // String!
+    }
+    vendors: { // args
+      category?: string | null; // String
+      limit?: number | null; // Int
+      offset?: number | null; // Int
+      text?: string | null; // String
+      type?: string | null; // String
+    }
   }
   User: {
     addresses: { // args
@@ -7523,7 +7635,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "BatchPayload" | "Card" | "Category" | "Company" | "Contact" | "Country" | "Coupon" | "Customer" | "DeliveryDetail" | "Enum" | "Field" | "Invoice" | "Model" | "Mutation" | "Order" | "OrderItem" | "Platform" | "Product" | "Query" | "Review" | "Schema" | "Staff" | "User";
+export type NexusGenObjectNames = "Address" | "BatchPayload" | "Card" | "Category" | "Company" | "Contact" | "Country" | "Coupon" | "Customer" | "DeliveryDetail" | "Enum" | "Field" | "Invoice" | "Model" | "Mutation" | "Order" | "OrderItem" | "Payment" | "Platform" | "Product" | "ProductResponse" | "Query" | "Review" | "Schema" | "Staff" | "User" | "Vendors";
 
 export type NexusGenInputNames = "AddressCreateInput" | "AddressCreateManyWithoutUserInput" | "AddressCreateOneWithoutCompanyInput" | "AddressCreateOneWithoutOrdersInput" | "AddressCreateWithoutCompanyInput" | "AddressCreateWithoutOrdersInput" | "AddressCreateWithoutUserInput" | "AddressFilter" | "AddressOrderByInput" | "AddressScalarWhereInput" | "AddressUpdateInput" | "AddressUpdateManyDataInput" | "AddressUpdateManyMutationInput" | "AddressUpdateManyWithWhereNestedInput" | "AddressUpdateManyWithoutUserInput" | "AddressUpdateOneRequiredWithoutOrdersInput" | "AddressUpdateOneWithoutCompanyInput" | "AddressUpdateWithWhereUniqueWithoutUserInput" | "AddressUpdateWithoutCompanyDataInput" | "AddressUpdateWithoutOrdersDataInput" | "AddressUpdateWithoutUserDataInput" | "AddressUpsertWithWhereUniqueWithoutUserInput" | "AddressUpsertWithoutCompanyInput" | "AddressUpsertWithoutOrdersInput" | "AddressWhereInput" | "AddressWhereUniqueInput" | "BooleanFilter" | "CardCreateInput" | "CardCreateManyWithoutUserInput" | "CardCreateWithoutUserInput" | "CardFilter" | "CardOrderByInput" | "CardScalarWhereInput" | "CardUpdateInput" | "CardUpdateManyDataInput" | "CardUpdateManyMutationInput" | "CardUpdateManyWithWhereNestedInput" | "CardUpdateManyWithoutUserInput" | "CardUpdateWithWhereUniqueWithoutUserInput" | "CardUpdateWithoutUserDataInput" | "CardUpsertWithWhereUniqueWithoutUserInput" | "CardWhereInput" | "CardWhereUniqueInput" | "CategoryCreateInput" | "CategoryCreateManyWithoutCompaniesInput" | "CategoryCreateManyWithoutParentInput" | "CategoryCreateManyWithoutPlatformInput" | "CategoryCreateManyWithoutProductsInput" | "CategoryCreateOneWithoutChildrenInput" | "CategoryCreateWithoutChildrenInput" | "CategoryCreateWithoutCompaniesInput" | "CategoryCreateWithoutParentInput" | "CategoryCreateWithoutPlatformInput" | "CategoryCreateWithoutProductsInput" | "CategoryFilter" | "CategoryOrderByInput" | "CategoryScalarWhereInput" | "CategoryUpdateInput" | "CategoryUpdateManyDataInput" | "CategoryUpdateManyMutationInput" | "CategoryUpdateManyWithWhereNestedInput" | "CategoryUpdateManyWithoutCompaniesInput" | "CategoryUpdateManyWithoutParentInput" | "CategoryUpdateManyWithoutPlatformInput" | "CategoryUpdateManyWithoutProductsInput" | "CategoryUpdateOneWithoutChildrenInput" | "CategoryUpdateWithWhereUniqueWithoutCompaniesInput" | "CategoryUpdateWithWhereUniqueWithoutParentInput" | "CategoryUpdateWithWhereUniqueWithoutPlatformInput" | "CategoryUpdateWithWhereUniqueWithoutProductsInput" | "CategoryUpdateWithoutChildrenDataInput" | "CategoryUpdateWithoutCompaniesDataInput" | "CategoryUpdateWithoutParentDataInput" | "CategoryUpdateWithoutPlatformDataInput" | "CategoryUpdateWithoutProductsDataInput" | "CategoryUpsertWithWhereUniqueWithoutCompaniesInput" | "CategoryUpsertWithWhereUniqueWithoutParentInput" | "CategoryUpsertWithWhereUniqueWithoutPlatformInput" | "CategoryUpsertWithWhereUniqueWithoutProductsInput" | "CategoryUpsertWithoutChildrenInput" | "CategoryWhereInput" | "CategoryWhereUniqueInput" | "CompanyCreateInput" | "CompanyCreateManyWithoutCategoriesInput" | "CompanyCreateManyWithoutOwnerInput" | "CompanyCreateManyWithoutPlatformInput" | "CompanyCreateOneWithoutAddressInput" | "CompanyCreateOneWithoutContactInput" | "CompanyCreateOneWithoutCustomersInput" | "CompanyCreateOneWithoutDeliveryDetailInput" | "CompanyCreateOneWithoutInvoicesInput" | "CompanyCreateOneWithoutOrdersInput" | "CompanyCreateOneWithoutProductsInput" | "CompanyCreateOneWithoutReviewsInput" | "CompanyCreateOneWithoutStaffsInput" | "CompanyCreateWithoutAddressInput" | "CompanyCreateWithoutCategoriesInput" | "CompanyCreateWithoutContactInput" | "CompanyCreateWithoutCustomersInput" | "CompanyCreateWithoutDeliveryDetailInput" | "CompanyCreateWithoutInvoicesInput" | "CompanyCreateWithoutOrdersInput" | "CompanyCreateWithoutOwnerInput" | "CompanyCreateWithoutPlatformInput" | "CompanyCreateWithoutProductsInput" | "CompanyCreateWithoutReviewsInput" | "CompanyCreateWithoutStaffsInput" | "CompanyFilter" | "CompanyOrderByInput" | "CompanyScalarWhereInput" | "CompanyUpdateInput" | "CompanyUpdateManyDataInput" | "CompanyUpdateManyMutationInput" | "CompanyUpdateManyWithWhereNestedInput" | "CompanyUpdateManyWithoutCategoriesInput" | "CompanyUpdateManyWithoutOwnerInput" | "CompanyUpdateManyWithoutPlatformInput" | "CompanyUpdateOneRequiredWithoutStaffsInput" | "CompanyUpdateOneWithoutAddressInput" | "CompanyUpdateOneWithoutContactInput" | "CompanyUpdateOneWithoutCustomersInput" | "CompanyUpdateOneWithoutDeliveryDetailInput" | "CompanyUpdateOneWithoutInvoicesInput" | "CompanyUpdateOneWithoutOrdersInput" | "CompanyUpdateOneWithoutProductsInput" | "CompanyUpdateOneWithoutReviewsInput" | "CompanyUpdateWithWhereUniqueWithoutCategoriesInput" | "CompanyUpdateWithWhereUniqueWithoutOwnerInput" | "CompanyUpdateWithWhereUniqueWithoutPlatformInput" | "CompanyUpdateWithoutAddressDataInput" | "CompanyUpdateWithoutCategoriesDataInput" | "CompanyUpdateWithoutContactDataInput" | "CompanyUpdateWithoutCustomersDataInput" | "CompanyUpdateWithoutDeliveryDetailDataInput" | "CompanyUpdateWithoutInvoicesDataInput" | "CompanyUpdateWithoutOrdersDataInput" | "CompanyUpdateWithoutOwnerDataInput" | "CompanyUpdateWithoutPlatformDataInput" | "CompanyUpdateWithoutProductsDataInput" | "CompanyUpdateWithoutReviewsDataInput" | "CompanyUpdateWithoutStaffsDataInput" | "CompanyUpsertWithWhereUniqueWithoutCategoriesInput" | "CompanyUpsertWithWhereUniqueWithoutOwnerInput" | "CompanyUpsertWithWhereUniqueWithoutPlatformInput" | "CompanyUpsertWithoutAddressInput" | "CompanyUpsertWithoutContactInput" | "CompanyUpsertWithoutCustomersInput" | "CompanyUpsertWithoutDeliveryDetailInput" | "CompanyUpsertWithoutInvoicesInput" | "CompanyUpsertWithoutOrdersInput" | "CompanyUpsertWithoutProductsInput" | "CompanyUpsertWithoutReviewsInput" | "CompanyUpsertWithoutStaffsInput" | "CompanyWhereInput" | "CompanyWhereUniqueInput" | "ContactCreateInput" | "ContactCreateManyWithoutUserInput" | "ContactCreateOneWithoutCompanyInput" | "ContactCreateOneWithoutOrdersInput" | "ContactCreateOneWithoutStaffsInput" | "ContactCreateWithoutCompanyInput" | "ContactCreateWithoutOrdersInput" | "ContactCreateWithoutStaffsInput" | "ContactCreateWithoutUserInput" | "ContactFilter" | "ContactOrderByInput" | "ContactScalarWhereInput" | "ContactUpdateInput" | "ContactUpdateManyDataInput" | "ContactUpdateManyMutationInput" | "ContactUpdateManyWithWhereNestedInput" | "ContactUpdateManyWithoutUserInput" | "ContactUpdateOneWithoutCompanyInput" | "ContactUpdateOneWithoutOrdersInput" | "ContactUpdateOneWithoutStaffsInput" | "ContactUpdateWithWhereUniqueWithoutUserInput" | "ContactUpdateWithoutCompanyDataInput" | "ContactUpdateWithoutOrdersDataInput" | "ContactUpdateWithoutStaffsDataInput" | "ContactUpdateWithoutUserDataInput" | "ContactUpsertWithWhereUniqueWithoutUserInput" | "ContactUpsertWithoutCompanyInput" | "ContactUpsertWithoutOrdersInput" | "ContactUpsertWithoutStaffsInput" | "ContactWhereInput" | "ContactWhereUniqueInput" | "CountryCreateInput" | "CountryCreateOneWithoutPlatformsInput" | "CountryCreateWithoutPlatformsInput" | "CountryOrderByInput" | "CountryUpdateInput" | "CountryUpdateManyMutationInput" | "CountryUpdateOneWithoutPlatformsInput" | "CountryUpdateWithoutPlatformsDataInput" | "CountryUpsertWithoutPlatformsInput" | "CountryWhereInput" | "CountryWhereUniqueInput" | "CouponCreateInput" | "CouponOrderByInput" | "CouponUpdateInput" | "CouponUpdateManyMutationInput" | "CouponWhereInput" | "CouponWhereUniqueInput" | "CustomerCreateInput" | "CustomerCreateManyWithoutCompanyInput" | "CustomerCreateManyWithoutUserInput" | "CustomerCreateOneWithoutInvoicesInput" | "CustomerCreateOneWithoutOrdersInput" | "CustomerCreateOneWithoutReviewsInput" | "CustomerCreateWithoutCompanyInput" | "CustomerCreateWithoutInvoicesInput" | "CustomerCreateWithoutOrdersInput" | "CustomerCreateWithoutReviewsInput" | "CustomerCreateWithoutUserInput" | "CustomerCreategroupsInput" | "CustomerFilter" | "CustomerOrderByInput" | "CustomerScalarWhereInput" | "CustomerUpdateInput" | "CustomerUpdateManyDataInput" | "CustomerUpdateManyMutationInput" | "CustomerUpdateManyWithWhereNestedInput" | "CustomerUpdateManyWithoutCompanyInput" | "CustomerUpdateManyWithoutUserInput" | "CustomerUpdateOneRequiredWithoutInvoicesInput" | "CustomerUpdateOneWithoutOrdersInput" | "CustomerUpdateOneWithoutReviewsInput" | "CustomerUpdateWithWhereUniqueWithoutCompanyInput" | "CustomerUpdateWithWhereUniqueWithoutUserInput" | "CustomerUpdateWithoutCompanyDataInput" | "CustomerUpdateWithoutInvoicesDataInput" | "CustomerUpdateWithoutOrdersDataInput" | "CustomerUpdateWithoutReviewsDataInput" | "CustomerUpdateWithoutUserDataInput" | "CustomerUpdategroupsInput" | "CustomerUpsertWithWhereUniqueWithoutCompanyInput" | "CustomerUpsertWithWhereUniqueWithoutUserInput" | "CustomerUpsertWithoutInvoicesInput" | "CustomerUpsertWithoutOrdersInput" | "CustomerUpsertWithoutReviewsInput" | "CustomerWhereInput" | "CustomerWhereUniqueInput" | "DateTimeFilter" | "DeliveryDetailCreateInput" | "DeliveryDetailCreateOneWithoutCompanyInput" | "DeliveryDetailCreateWithoutCompanyInput" | "DeliveryDetailOrderByInput" | "DeliveryDetailUpdateInput" | "DeliveryDetailUpdateManyMutationInput" | "DeliveryDetailUpdateOneRequiredWithoutCompanyInput" | "DeliveryDetailUpdateWithoutCompanyDataInput" | "DeliveryDetailUpsertWithoutCompanyInput" | "DeliveryDetailWhereInput" | "DeliveryDetailWhereUniqueInput" | "FloatFilter" | "IntFilter" | "InvoiceCreateInput" | "InvoiceCreateManyWithoutCompanyInput" | "InvoiceCreateManyWithoutCustomerInput" | "InvoiceCreateManyWithoutOrderInput" | "InvoiceCreateWithoutCompanyInput" | "InvoiceCreateWithoutCustomerInput" | "InvoiceCreateWithoutOrderInput" | "InvoiceFilter" | "InvoiceOrderByInput" | "InvoiceScalarWhereInput" | "InvoiceUpdateInput" | "InvoiceUpdateManyDataInput" | "InvoiceUpdateManyMutationInput" | "InvoiceUpdateManyWithWhereNestedInput" | "InvoiceUpdateManyWithoutCompanyInput" | "InvoiceUpdateManyWithoutCustomerInput" | "InvoiceUpdateManyWithoutOrderInput" | "InvoiceUpdateWithWhereUniqueWithoutCompanyInput" | "InvoiceUpdateWithWhereUniqueWithoutCustomerInput" | "InvoiceUpdateWithWhereUniqueWithoutOrderInput" | "InvoiceUpdateWithoutCompanyDataInput" | "InvoiceUpdateWithoutCustomerDataInput" | "InvoiceUpdateWithoutOrderDataInput" | "InvoiceUpsertWithWhereUniqueWithoutCompanyInput" | "InvoiceUpsertWithWhereUniqueWithoutCustomerInput" | "InvoiceUpsertWithWhereUniqueWithoutOrderInput" | "InvoiceWhereInput" | "InvoiceWhereUniqueInput" | "NullableBooleanFilter" | "NullableDateTimeFilter" | "NullableFloatFilter" | "NullableIntFilter" | "NullableStringFilter" | "OrderCreateInput" | "OrderCreateManyWithoutCompanyInput" | "OrderCreateManyWithoutContactInput" | "OrderCreateManyWithoutCustomerInput" | "OrderCreateManyWithoutDeliveryAdressInput" | "OrderCreateOneWithoutInvoiceInput" | "OrderCreateOneWithoutOrderItemsInput" | "OrderCreateOneWithoutReviewsInput" | "OrderCreateWithoutCompanyInput" | "OrderCreateWithoutContactInput" | "OrderCreateWithoutCustomerInput" | "OrderCreateWithoutDeliveryAdressInput" | "OrderCreateWithoutInvoiceInput" | "OrderCreateWithoutOrderItemsInput" | "OrderCreateWithoutReviewsInput" | "OrderFilter" | "OrderItemCreateInput" | "OrderItemCreateManyWithoutOrderInput" | "OrderItemCreateManyWithoutProductInput" | "OrderItemCreateWithoutOrderInput" | "OrderItemCreateWithoutProductInput" | "OrderItemFilter" | "OrderItemOrderByInput" | "OrderItemScalarWhereInput" | "OrderItemUpdateInput" | "OrderItemUpdateManyDataInput" | "OrderItemUpdateManyMutationInput" | "OrderItemUpdateManyWithWhereNestedInput" | "OrderItemUpdateManyWithoutOrderInput" | "OrderItemUpdateManyWithoutProductInput" | "OrderItemUpdateWithWhereUniqueWithoutOrderInput" | "OrderItemUpdateWithWhereUniqueWithoutProductInput" | "OrderItemUpdateWithoutOrderDataInput" | "OrderItemUpdateWithoutProductDataInput" | "OrderItemUpsertWithWhereUniqueWithoutOrderInput" | "OrderItemUpsertWithWhereUniqueWithoutProductInput" | "OrderItemWhereInput" | "OrderItemWhereUniqueInput" | "OrderOrderByInput" | "OrderScalarWhereInput" | "OrderUpdateInput" | "OrderUpdateManyDataInput" | "OrderUpdateManyMutationInput" | "OrderUpdateManyWithWhereNestedInput" | "OrderUpdateManyWithoutCompanyInput" | "OrderUpdateManyWithoutContactInput" | "OrderUpdateManyWithoutCustomerInput" | "OrderUpdateManyWithoutDeliveryAdressInput" | "OrderUpdateOneRequiredWithoutInvoiceInput" | "OrderUpdateOneRequiredWithoutOrderItemsInput" | "OrderUpdateOneWithoutReviewsInput" | "OrderUpdateWithWhereUniqueWithoutCompanyInput" | "OrderUpdateWithWhereUniqueWithoutContactInput" | "OrderUpdateWithWhereUniqueWithoutCustomerInput" | "OrderUpdateWithWhereUniqueWithoutDeliveryAdressInput" | "OrderUpdateWithoutCompanyDataInput" | "OrderUpdateWithoutContactDataInput" | "OrderUpdateWithoutCustomerDataInput" | "OrderUpdateWithoutDeliveryAdressDataInput" | "OrderUpdateWithoutInvoiceDataInput" | "OrderUpdateWithoutOrderItemsDataInput" | "OrderUpdateWithoutReviewsDataInput" | "OrderUpsertWithWhereUniqueWithoutCompanyInput" | "OrderUpsertWithWhereUniqueWithoutContactInput" | "OrderUpsertWithWhereUniqueWithoutCustomerInput" | "OrderUpsertWithWhereUniqueWithoutDeliveryAdressInput" | "OrderUpsertWithoutInvoiceInput" | "OrderUpsertWithoutOrderItemsInput" | "OrderUpsertWithoutReviewsInput" | "OrderWhereInput" | "OrderWhereUniqueInput" | "PlatformCreateInput" | "PlatformCreateManyWithoutCountryInput" | "PlatformCreateManyWithoutOwnerInput" | "PlatformCreateOneWithoutCategoriesInput" | "PlatformCreateOneWithoutCompaniesInput" | "PlatformCreateWithoutCategoriesInput" | "PlatformCreateWithoutCompaniesInput" | "PlatformCreateWithoutCountryInput" | "PlatformCreateWithoutOwnerInput" | "PlatformFilter" | "PlatformOrderByInput" | "PlatformScalarWhereInput" | "PlatformUpdateInput" | "PlatformUpdateManyDataInput" | "PlatformUpdateManyMutationInput" | "PlatformUpdateManyWithWhereNestedInput" | "PlatformUpdateManyWithoutCountryInput" | "PlatformUpdateManyWithoutOwnerInput" | "PlatformUpdateOneRequiredWithoutCategoriesInput" | "PlatformUpdateOneRequiredWithoutCompaniesInput" | "PlatformUpdateWithWhereUniqueWithoutCountryInput" | "PlatformUpdateWithWhereUniqueWithoutOwnerInput" | "PlatformUpdateWithoutCategoriesDataInput" | "PlatformUpdateWithoutCompaniesDataInput" | "PlatformUpdateWithoutCountryDataInput" | "PlatformUpdateWithoutOwnerDataInput" | "PlatformUpsertWithWhereUniqueWithoutCountryInput" | "PlatformUpsertWithWhereUniqueWithoutOwnerInput" | "PlatformUpsertWithoutCategoriesInput" | "PlatformUpsertWithoutCompaniesInput" | "PlatformWhereInput" | "PlatformWhereUniqueInput" | "ProductCreateInput" | "ProductCreateManyWithoutCategoriesInput" | "ProductCreateManyWithoutCompanyInput" | "ProductCreateOneWithoutOrderItemsInput" | "ProductCreateOneWithoutReviewInput" | "ProductCreateWithoutCategoriesInput" | "ProductCreateWithoutCompanyInput" | "ProductCreateWithoutOrderItemsInput" | "ProductCreateWithoutReviewInput" | "ProductCreategalleryInput" | "ProductFilter" | "ProductOrderByInput" | "ProductScalarWhereInput" | "ProductUpdateInput" | "ProductUpdateManyDataInput" | "ProductUpdateManyMutationInput" | "ProductUpdateManyWithWhereNestedInput" | "ProductUpdateManyWithoutCategoriesInput" | "ProductUpdateManyWithoutCompanyInput" | "ProductUpdateOneRequiredWithoutOrderItemsInput" | "ProductUpdateOneWithoutReviewInput" | "ProductUpdateWithWhereUniqueWithoutCategoriesInput" | "ProductUpdateWithWhereUniqueWithoutCompanyInput" | "ProductUpdateWithoutCategoriesDataInput" | "ProductUpdateWithoutCompanyDataInput" | "ProductUpdateWithoutOrderItemsDataInput" | "ProductUpdateWithoutReviewDataInput" | "ProductUpdategalleryInput" | "ProductUpsertWithWhereUniqueWithoutCategoriesInput" | "ProductUpsertWithWhereUniqueWithoutCompanyInput" | "ProductUpsertWithoutOrderItemsInput" | "ProductUpsertWithoutReviewInput" | "ProductWhereInput" | "ProductWhereUniqueInput" | "ReviewCreateInput" | "ReviewCreateManyWithoutCompanyInput" | "ReviewCreateManyWithoutCustomerInput" | "ReviewCreateManyWithoutOrderInput" | "ReviewCreateManyWithoutProductInput" | "ReviewCreateWithoutCompanyInput" | "ReviewCreateWithoutCustomerInput" | "ReviewCreateWithoutOrderInput" | "ReviewCreateWithoutProductInput" | "ReviewFilter" | "ReviewOrderByInput" | "ReviewScalarWhereInput" | "ReviewUpdateInput" | "ReviewUpdateManyDataInput" | "ReviewUpdateManyMutationInput" | "ReviewUpdateManyWithWhereNestedInput" | "ReviewUpdateManyWithoutCompanyInput" | "ReviewUpdateManyWithoutCustomerInput" | "ReviewUpdateManyWithoutOrderInput" | "ReviewUpdateManyWithoutProductInput" | "ReviewUpdateWithWhereUniqueWithoutCompanyInput" | "ReviewUpdateWithWhereUniqueWithoutCustomerInput" | "ReviewUpdateWithWhereUniqueWithoutOrderInput" | "ReviewUpdateWithWhereUniqueWithoutProductInput" | "ReviewUpdateWithoutCompanyDataInput" | "ReviewUpdateWithoutCustomerDataInput" | "ReviewUpdateWithoutOrderDataInput" | "ReviewUpdateWithoutProductDataInput" | "ReviewUpsertWithWhereUniqueWithoutCompanyInput" | "ReviewUpsertWithWhereUniqueWithoutCustomerInput" | "ReviewUpsertWithWhereUniqueWithoutOrderInput" | "ReviewUpsertWithWhereUniqueWithoutProductInput" | "ReviewWhereInput" | "ReviewWhereUniqueInput" | "StaffCreateInput" | "StaffCreateManyWithoutCompanyInput" | "StaffCreateManyWithoutContactInput" | "StaffCreateManyWithoutUserInput" | "StaffCreateWithoutCompanyInput" | "StaffCreateWithoutContactInput" | "StaffCreateWithoutUserInput" | "StaffFilter" | "StaffOrderByInput" | "StaffScalarWhereInput" | "StaffUpdateInput" | "StaffUpdateManyDataInput" | "StaffUpdateManyMutationInput" | "StaffUpdateManyWithWhereNestedInput" | "StaffUpdateManyWithoutCompanyInput" | "StaffUpdateManyWithoutContactInput" | "StaffUpdateManyWithoutUserInput" | "StaffUpdateWithWhereUniqueWithoutCompanyInput" | "StaffUpdateWithWhereUniqueWithoutContactInput" | "StaffUpdateWithWhereUniqueWithoutUserInput" | "StaffUpdateWithoutCompanyDataInput" | "StaffUpdateWithoutContactDataInput" | "StaffUpdateWithoutUserDataInput" | "StaffUpsertWithWhereUniqueWithoutCompanyInput" | "StaffUpsertWithWhereUniqueWithoutContactInput" | "StaffUpsertWithWhereUniqueWithoutUserInput" | "StaffWhereInput" | "StaffWhereUniqueInput" | "StringFilter" | "UpdateFieldInput" | "UpdateModelInput" | "UserCreateInput" | "UserCreateOneWithoutAddressesInput" | "UserCreateOneWithoutCardsInput" | "UserCreateOneWithoutCompaniesInput" | "UserCreateOneWithoutContactsInput" | "UserCreateOneWithoutCustomersInput" | "UserCreateOneWithoutPlatformsInput" | "UserCreateOneWithoutStaffsInput" | "UserCreateWithoutAddressesInput" | "UserCreateWithoutCardsInput" | "UserCreateWithoutCompaniesInput" | "UserCreateWithoutContactsInput" | "UserCreateWithoutCustomersInput" | "UserCreateWithoutPlatformsInput" | "UserCreateWithoutStaffsInput" | "UserOrderByInput" | "UserUpdateInput" | "UserUpdateManyMutationInput" | "UserUpdateOneRequiredWithoutCustomersInput" | "UserUpdateOneRequiredWithoutPlatformsInput" | "UserUpdateOneRequiredWithoutStaffsInput" | "UserUpdateOneWithoutAddressesInput" | "UserUpdateOneWithoutCardsInput" | "UserUpdateOneWithoutCompaniesInput" | "UserUpdateOneWithoutContactsInput" | "UserUpdateWithoutAddressesDataInput" | "UserUpdateWithoutCardsDataInput" | "UserUpdateWithoutCompaniesDataInput" | "UserUpdateWithoutContactsDataInput" | "UserUpdateWithoutCustomersDataInput" | "UserUpdateWithoutPlatformsDataInput" | "UserUpdateWithoutStaffsDataInput" | "UserUpsertWithoutAddressesInput" | "UserUpsertWithoutCardsInput" | "UserUpsertWithoutCompaniesInput" | "UserUpsertWithoutContactsInput" | "UserUpsertWithoutCustomersInput" | "UserUpsertWithoutPlatformsInput" | "UserUpsertWithoutStaffsInput" | "UserWhereInput" | "UserWhereUniqueInput";
 

@@ -36,3 +36,4 @@ yarn-error.log*
 src/**/models/*.tsx
 src/**/models/**/*.ts
 src/**/generated
+.env

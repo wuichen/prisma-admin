@@ -3410,6 +3410,10 @@ export type Model = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addOrder: Order;
+  addPaymentCard: User;
+  applyCoupon: Coupon;
+  charge: Payment;
   createOneAddress: Address;
   createOneCard: Card;
   createOneCategory: Category;
@@ -3427,6 +3431,8 @@ export type Mutation = {
   createOneReview: Review;
   createOneStaff: Staff;
   createOneUser: User;
+  deleteAddress: User;
+  deleteContact: User;
   deleteManyAddress: BatchPayload;
   deleteManyCard: BatchPayload;
   deleteManyCategory: BatchPayload;
@@ -3461,9 +3467,12 @@ export type Mutation = {
   deleteOneReview?: Maybe<Review>;
   deleteOneStaff?: Maybe<Staff>;
   deleteOneUser?: Maybe<User>;
+  deletePaymentCard: User;
   login?: Maybe<User>;
   logout: Scalars['Boolean'];
   signup: User;
+  updateAddress: User;
+  updateContact: User;
   updateField: Field;
   updateManyAddress: BatchPayload;
   updateManyCard: BatchPayload;
@@ -3482,6 +3491,7 @@ export type Mutation = {
   updateManyReview: BatchPayload;
   updateManyStaff: BatchPayload;
   updateManyUser: BatchPayload;
+  updateMe: User;
   updateModel: Model;
   updateOneAddress: Address;
   updateOneCard: Card;
@@ -3517,6 +3527,26 @@ export type Mutation = {
   upsertOneReview: Review;
   upsertOneStaff: Staff;
   upsertOneUser: User;
+};
+
+
+export type MutationAddOrderArgs = {
+  orderInput: Scalars['String'];
+};
+
+
+export type MutationAddPaymentCardArgs = {
+  cardInput: Scalars['String'];
+};
+
+
+export type MutationApplyCouponArgs = {
+  code: Scalars['String'];
+};
+
+
+export type MutationChargeArgs = {
+  paymentInput: Scalars['String'];
 };
 
 
@@ -3602,6 +3632,16 @@ export type MutationCreateOneStaffArgs = {
 
 export type MutationCreateOneUserArgs = {
   data: UserCreateInput;
+};
+
+
+export type MutationDeleteAddressArgs = {
+  addressId: Scalars['String'];
+};
+
+
+export type MutationDeleteContactArgs = {
+  contactId: Scalars['String'];
 };
 
 
@@ -3775,6 +3815,11 @@ export type MutationDeleteOneUserArgs = {
 };
 
 
+export type MutationDeletePaymentCardArgs = {
+  cardId: Scalars['String'];
+};
+
+
 export type MutationLoginArgs = {
   idToken: Scalars['String'];
 };
@@ -3782,6 +3827,16 @@ export type MutationLoginArgs = {
 
 export type MutationSignupArgs = {
   idToken: Scalars['String'];
+};
+
+
+export type MutationUpdateAddressArgs = {
+  addressInput: Scalars['String'];
+};
+
+
+export type MutationUpdateContactArgs = {
+  contactInput: Scalars['String'];
 };
 
 
@@ -3891,6 +3946,11 @@ export type MutationUpdateManyStaffArgs = {
 export type MutationUpdateManyUserArgs = {
   data: UserUpdateManyMutationInput;
   where?: Maybe<UserWhereInput>;
+};
+
+
+export type MutationUpdateMeArgs = {
+  meInput: Scalars['String'];
 };
 
 
@@ -5047,6 +5107,11 @@ export type OrderWhereUniqueInput = {
   id?: Maybe<Scalars['Int']>;
 };
 
+export type Payment = {
+  __typename?: 'Payment';
+  status: Scalars['String'];
+};
+
 export type Platform = {
   __typename?: 'Platform';
   bannerImg?: Maybe<Scalars['String']>;
@@ -5613,6 +5678,13 @@ export type ProductOrderByInput = {
   width?: Maybe<OrderByArg>;
 };
 
+export type ProductResponse = {
+  __typename?: 'ProductResponse';
+  hasMore: Scalars['Boolean'];
+  items: Array<Product>;
+  total: Scalars['Int'];
+};
+
 export type ProductScalarWhereInput = {
   AND?: Maybe<Array<ProductScalarWhereInput>>;
   categories?: Maybe<CategoryFilter>;
@@ -5910,6 +5982,9 @@ export type ProductWhereUniqueInput = {
 
 export type Query = {
   __typename?: 'Query';
+  categories: Array<Category>;
+  category: Category;
+  coupons: Array<Coupon>;
   findManyAddress?: Maybe<Array<Address>>;
   findManyAddressCount: Scalars['Int'];
   findManyCard?: Maybe<Array<Card>>;
@@ -5962,7 +6037,24 @@ export type Query = {
   findOneStaff?: Maybe<Staff>;
   findOneUser?: Maybe<User>;
   getSchema: Schema;
-  me?: Maybe<User>;
+  me: User;
+  order: Order;
+  orders: Array<Order>;
+  product: Product;
+  products: ProductResponse;
+  relatedProducts: Array<Product>;
+  vendor: Company;
+  vendors: Vendors;
+};
+
+
+export type QueryCategoriesArgs = {
+  type: Scalars['String'];
+};
+
+
+export type QueryCategoryArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -6354,6 +6446,50 @@ export type QueryFindOneStaffArgs = {
 
 export type QueryFindOneUserArgs = {
   where: UserWhereUniqueInput;
+};
+
+
+export type QueryOrderArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryOrdersArgs = {
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryProductArgs = {
+  slug: Scalars['String'];
+};
+
+
+export type QueryProductsArgs = {
+  category?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryRelatedProductsArgs = {
+  slug: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryVendorArgs = {
+  slug: Scalars['String'];
+};
+
+
+export type QueryVendorsArgs = {
+  category?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
 };
 
 export type Review = {
@@ -7655,15 +7791,22 @@ export type UserWhereUniqueInput = {
   username?: Maybe<Scalars['String']>;
 };
 
+export type Vendors = {
+  __typename?: 'Vendors';
+  hasMore: Scalars['Boolean'];
+  items?: Maybe<Array<Company>>;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
 export type MeQueryVariables = {};
 
 
 export type MeQuery = (
   { __typename?: 'Query' }
-  & { me?: Maybe<(
+  & { me: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'email'>
-  )> }
+  ) }
 );
 
 export type LoginMutationVariables = {

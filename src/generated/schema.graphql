@@ -3233,6 +3233,10 @@ type Model {
 }
 
 type Mutation {
+  addOrder(orderInput: String!): Order!
+  addPaymentCard(cardInput: String!): User!
+  applyCoupon(code: String!): Coupon!
+  charge(paymentInput: String!): Payment!
   createOneAddress(data: AddressCreateInput!): Address!
   createOneCard(data: CardCreateInput!): Card!
   createOneCategory(data: CategoryCreateInput!): Category!
@@ -3250,6 +3254,8 @@ type Mutation {
   createOneReview(data: ReviewCreateInput!): Review!
   createOneStaff(data: StaffCreateInput!): Staff!
   createOneUser(data: UserCreateInput!): User!
+  deleteAddress(addressId: String!): User!
+  deleteContact(contactId: String!): User!
   deleteManyAddress(where: AddressWhereInput): BatchPayload!
   deleteManyCard(where: CardWhereInput): BatchPayload!
   deleteManyCategory(where: CategoryWhereInput): BatchPayload!
@@ -3284,9 +3290,12 @@ type Mutation {
   deleteOneReview(where: ReviewWhereUniqueInput!): Review
   deleteOneStaff(where: StaffWhereUniqueInput!): Staff
   deleteOneUser(where: UserWhereUniqueInput!): User
+  deletePaymentCard(cardId: String!): User!
   login(idToken: String!): User
   logout: Boolean!
   signup(idToken: String!): User!
+  updateAddress(addressInput: String!): User!
+  updateContact(contactInput: String!): User!
   updateField(data: UpdateFieldInput, id: String!, modelId: String!): Field!
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   updateManyCard(data: CardUpdateManyMutationInput!, where: CardWhereInput): BatchPayload!
@@ -3305,6 +3314,7 @@ type Mutation {
   updateManyReview(data: ReviewUpdateManyMutationInput!, where: ReviewWhereInput): BatchPayload!
   updateManyStaff(data: StaffUpdateManyMutationInput!, where: StaffWhereInput): BatchPayload!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateMe(meInput: String!): User!
   updateModel(data: UpdateModelInput, id: String!): Model!
   updateOneAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address!
   updateOneCard(data: CardUpdateInput!, where: CardWhereUniqueInput!): Card!
@@ -4240,6 +4250,10 @@ input OrderWhereUniqueInput {
   id: Int
 }
 
+type Payment {
+  status: String!
+}
+
 type Platform {
   bannerImg: String
   categories(cursor: CategoryWhereUniqueInput, orderBy: CategoryOrderByInput, skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
@@ -4759,6 +4773,12 @@ input ProductOrderByInput {
   width: OrderByArg
 }
 
+type ProductResponse {
+  hasMore: Boolean!
+  items: [Product!]!
+  total: Int!
+}
+
 input ProductScalarWhereInput {
   AND: [ProductScalarWhereInput!]
   categories: CategoryFilter
@@ -5055,6 +5075,9 @@ input ProductWhereUniqueInput {
 }
 
 type Query {
+  categories(type: String!): [Category!]!
+  category(id: Int!): Category!
+  coupons: [Coupon!]!
   findManyAddress(cursor: AddressWhereUniqueInput, orderBy: AddressOrderByInput, skip: Int, take: Int, where: AddressWhereInput): [Address!]
   findManyAddressCount(cursor: AddressWhereUniqueInput, orderBy: AddressOrderByInput, skip: Int, take: Int, where: AddressWhereInput): Int!
   findManyCard(cursor: CardWhereUniqueInput, orderBy: CardOrderByInput, skip: Int, take: Int, where: CardWhereInput): [Card!]
@@ -5108,6 +5131,13 @@ type Query {
   findOneUser(where: UserWhereUniqueInput!): User
   getSchema: Schema!
   me: User
+  order(id: Int!): Order!
+  orders(limit: Int = 7): [Order!]!
+  product(slug: String!): Product!
+  products(category: String, limit: Int = 10, offset: Int = 0, text: String, type: String): ProductResponse!
+  relatedProducts(slug: String!, type: String): [Product!]!
+  vendor(slug: String!): Company!
+  vendors(category: String, limit: Int = 10, offset: Int = 0, text: String, type: String): Vendors!
 }
 
 type Review {
@@ -6340,4 +6370,10 @@ input UserWhereUniqueInput {
   email: String
   id: String
   username: String
+}
+
+type Vendors {
+  hasMore: Boolean!
+  items: [Company!]
+  totalCount: Int
 }
