@@ -41,7 +41,11 @@ async function seedData() {
   if (data.users) {
     for (let index = 0; index < data.users.length; index++) {
       let element = data.users[index];
-      element.id = element.firstName + Math.floor(Math.random() * 1000).toString();
+      if (index === 0) {
+        element.id = 'smdFe5UxjRU12AMQeGQDsCAQnLJ2';
+      } else {
+        element.id = element.firstName + Math.floor(Math.random() * 1000).toString();
+      }
       try {
         const user = await prisma.user.create({
           data: element,

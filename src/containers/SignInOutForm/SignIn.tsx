@@ -18,11 +18,14 @@ import { FormattedMessage } from 'react-intl';
 import { closeModal } from '@redq/reuse-modal';
 import Image from 'components/Image/Image';
 import PickBazar from '../../image/PickBazar.png';
+import firebase from 'lib/firebase/client';
+import { useLoginMutation } from 'generated';
 
 export default function SignInModal() {
   const { authDispatch } = useContext<any>(AuthContext);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [login] = useLoginMutation();
 
   const toggleSignUpForm = () => {
     authDispatch({
@@ -36,12 +39,25 @@ export default function SignInModal() {
     });
   };
 
-  const loginCallback = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('access_token', `${email}.${password}`);
-      authDispatch({ type: 'SIGNIN_SUCCESS' });
-      closeModal();
+  const loginCallback = async () => {
+    event.preventDefault();
+
+    const firebaseSignIn = await firebase.auth().signInWithEmailAndPassword(email, password);
+
+    const idToken = await firebaseSignIn.user?.getIdToken();
+    if (idToken) {
+      login({
+        variables: {
+          idToken,
+        },
+      }).then(({ data, errors }) => {
+        if (!errors && data?.login) {
+          localStorage.setItem('session', data.login.token);
+          authDispatch({ type: 'SIGNIN_SUCCESS' });
+        }
+      });
     }
+    closeModal();
   };
 
   return (

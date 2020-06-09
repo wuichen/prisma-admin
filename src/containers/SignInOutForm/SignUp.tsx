@@ -18,14 +18,41 @@ import { AuthContext } from 'contexts/auth/auth.context';
 import { FormattedMessage } from 'react-intl';
 import Image from 'components/Image/Image';
 import PickBazar from '../../image/PickBazar.png';
+import { useSignupMutation } from 'generated';
+import firebase from 'lib/firebase/client';
+import { closeModal } from '@redq/reuse-modal';
 
 export default function SignOutModal() {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const { authDispatch } = useContext<any>(AuthContext);
+  const [signup] = useSignupMutation();
 
   const toggleSignInForm = () => {
     authDispatch({
       type: 'SIGNIN',
     });
+  };
+
+  const signUpCallback = async () => {
+    event.preventDefault();
+
+    const firebaseSignUp = await firebase.auth().createUserWithEmailAndPassword(email, password);
+
+    const idToken = await firebaseSignUp.user?.getIdToken();
+    if (idToken) {
+      signup({
+        variables: {
+          idToken,
+        },
+      }).then(({ data, errors }) => {
+        if (!errors && data?.signup) {
+          localStorage.setItem('session', data.signup.token);
+          authDispatch({ type: 'SIGNIN_SUCCESS' });
+        }
+      });
+    }
+    closeModal();
   };
 
   return (
@@ -44,11 +71,20 @@ export default function SignOutModal() {
         </SubHeading>
 
         <FormattedMessage id="emailAddressPlaceholder" defaultMessage="Email Address or Contact No.">
-          {(placeholder) => <Input type="text" placeholder={placeholder} />}
+          {(placeholder) => (
+            <Input placeholder={placeholder} type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          )}
         </FormattedMessage>
 
         <FormattedMessage id="passwordPlaceholder" defaultMessage="Password (min 6 characters)">
-          {(placeholder) => <Input type="email" placeholder={placeholder} />}
+          {(placeholder) => (
+            <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder={placeholder}
+            />
+          )}
         </FormattedMessage>
 
         <HelperText style={{ padding: '20px 0 30px' }}>
@@ -60,7 +96,13 @@ export default function SignOutModal() {
           </Link>
         </HelperText>
 
-        <Button fullwidth title={'Continue'} intlButtonId="continueBtn" style={{ color: '#fff' }} />
+        <Button
+          onClick={signUpCallback}
+          fullwidth
+          title={'Continue'}
+          intlButtonId="continueBtn"
+          style={{ color: '#fff' }}
+        />
 
         <Divider>
           <span>

@@ -35,7 +35,7 @@ const initialContext: ContextProps = {};
 export const LayoutContext: React.Context<ContextProps> = React.createContext(initialContext);
 
 const LayoutPage: React.FC = ({ children }) => {
-  const [theme, setTheme] = useState<DefaultTheme['name']>('default');
+  const [theme, setTheme] = useState<DefaultTheme['name']>('dark');
   const sidebarRef = useRef<SidebarRefObject>(null);
   const menuRef = useRef<MenuRefObject>(null);
   const { data: userData, loading, refetch } = useMeQuery();
@@ -47,15 +47,14 @@ const LayoutPage: React.FC = ({ children }) => {
 
   const authLayout = router.pathname.startsWith('/admin/auth');
   const adminLayout = router.pathname.startsWith('/admin');
-  const shopLayout = ['/'].includes(router.pathname);
 
-  // useEffect(() => {
-  //   if (!loading && !userData?.me && !authLayout) {
-  //     router.push('/admin/auth/login');
-  //   } else if (authLayout && userData?.me && !loading) {
-  //     router.push('/admin');
-  //   }
-  // }, [loading, userData]);
+  useEffect(() => {
+    if (!loading && !userData?.me && !authLayout) {
+      router.push('/admin/auth/login');
+    } else if (authLayout && userData?.me && !loading) {
+      router.push('/admin');
+    }
+  }, [loading, userData]);
 
   return (
     <ThemeProvider theme={themes(theme)}>
@@ -69,7 +68,7 @@ const LayoutPage: React.FC = ({ children }) => {
           }}
         >
           <SimpleLayout />
-          <Layout evaIcons={icons} className={shopLayout ? 'shop-layout' : authLayout ? 'auth-layout' : ''}>
+          <Layout evaIcons={icons} className={authLayout ? 'auth-layout' : ''}>
             {!authLayout && (
               <Header theme={theme} changeTheme={changeTheme} toggleSidebar={() => sidebarRef.current?.toggle()} />
             )}

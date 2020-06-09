@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import SignInForm from './SignIn';
-import SignOutForm from './SignUp';
+import SignUpForm from './SignUp';
 import ForgotPassForm from './ForgotPass';
 import { AuthContext } from 'contexts/auth/auth.context';
 
@@ -13,7 +13,7 @@ export default function AuthenticationForm() {
   }
 
   if (authState.currentForm === 'signUp') {
-    RenderForm = SignOutForm;
+    RenderForm = SignUpForm;
   }
 
   if (authState.currentForm === 'forgotPass') {

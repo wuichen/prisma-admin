@@ -20,10 +20,7 @@ import {
 import OFFERS from 'data/offers';
 import BannerImg from 'image/grocery.png';
 import storeType from 'constants/storeType';
-import { ThemeProvider } from 'styled-components';
-import { theme } from 'theme';
-import { GlobalStyle } from 'styled/global.style';
-import { LayoutWrapper } from 'containers/LayoutContainer/Layout.style';
+
 const PAGE_TYPE = 'grocery';
 
 function HomePage({ deviceType }) {
@@ -86,13 +83,4 @@ function HomePage({ deviceType }) {
   );
 }
 
-export default function ({ deviceType }) {
-  return (
-    <LayoutWrapper>
-      <ThemeProvider theme={theme}>
-        <HomePage deviceType={deviceType} />
-        <GlobalStyle />
-      </ThemeProvider>
-    </LayoutWrapper>
-  );
-}
+export default HomePage;

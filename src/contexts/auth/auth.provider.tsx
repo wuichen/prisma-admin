@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { AuthContext } from './auth.context';
 const isBrowser = typeof window !== 'undefined';
 const INITIAL_STATE = {
-  isAuthenticated: isBrowser && !!localStorage.getItem('access_token'),
+  isAuthenticated: isBrowser && !!localStorage.getItem('session'),
   currentForm: 'signIn',
 };
 

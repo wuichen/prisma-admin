@@ -8,13 +8,13 @@ import firebaseAdmin from '../../../lib/firebase/admin'
 import firebase from '../../../lib/firebase/client'
 import { EXPIRES_IN } from '../../../constants/cookie'
 
-// export const AuthPayload = objectType({
-//   name: 'AuthPayload',
-//   definition(t) {
-//     t.string('token')
-//     t.field('user', { type: 'User' })
-//   },
-// })
+export const AuthPayload = objectType({
+  name: 'AuthPayload',
+  definition(t) {
+    t.string('token')
+    t.field('user', { type: 'User' })
+  },
+})
 
 export const AuthQueries = extendType({
   type: 'Query',
@@ -39,7 +39,7 @@ export const AuthMutations = extendType({
   type: 'Mutation',
   definition(t) {
     t.field('signup', {
-      type: 'User',
+      type: 'AuthPayload',
       args: {
         idToken: stringArg({ nullable: false }),
       },
@@ -74,11 +74,11 @@ export const AuthMutations = extendType({
         // We manage the session ourselves.
         await firebase.auth().signOut()
 
-        return dbUser
+        return { user: dbUser, token }
       },
     })
     t.field('login', {
-      type: 'User',
+      type: 'AuthPayload',
       nullable: true,
       args: {
         idToken: stringArg({ nullable: false }),
@@ -102,6 +102,10 @@ export const AuthMutations = extendType({
           },
         })
 
+        if (!dbUser) {
+          throw new Error('Please contact support, user in firebase but not in db')
+        }
+
         const token = await firebaseAdmin.auth().createSessionCookie(idToken, {
           expiresIn: EXPIRES_IN,
         })
@@ -114,7 +118,7 @@ export const AuthMutations = extendType({
         await firebase.auth().signOut()
         ctx.res.setHeader('Set-Cookie', `session=${token}`)
 
-        return dbUser
+        return { user: dbUser, token }
       },
     })
     t.field('logout', {

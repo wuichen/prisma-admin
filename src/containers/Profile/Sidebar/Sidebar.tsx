@@ -23,7 +23,7 @@ const SidebarCategory: React.FC<{}> = () => {
   ];
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('access_token');
+      localStorage.removeItem('session');
       authDispatch({ type: 'SIGN_OUT' });
       Router.push('/');
     }

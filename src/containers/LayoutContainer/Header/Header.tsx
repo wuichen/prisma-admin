@@ -27,7 +27,7 @@ const Header: React.FC<Props> = ({ className }) => {
   const { pathname, query } = useRouter();
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('access_token');
+      localStorage.removeItem('session');
       authDispatch({ type: 'SIGN_OUT' });
       Router.push('/');
     }

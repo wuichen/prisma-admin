@@ -7,13 +7,21 @@ query me {
 
 mutation login($idToken: String!) {
   login(idToken: $idToken) {
-    id
+    user {
+      id
+      email
+    }
+    token
   }
 }
 
 mutation signup($idToken: String!) {
   signup(idToken: $idToken) {
-    id
+    user {
+      id
+      email
+    }
+    token
   }
 }
 

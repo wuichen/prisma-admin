@@ -238,6 +238,11 @@ input AddressWhereUniqueInput {
   id: Int
 }
 
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
 type BatchPayload {
   count: Int!
 }
@@ -3291,9 +3296,9 @@ type Mutation {
   deleteOneStaff(where: StaffWhereUniqueInput!): Staff
   deleteOneUser(where: UserWhereUniqueInput!): User
   deletePaymentCard(cardId: String!): User!
-  login(idToken: String!): User
+  login(idToken: String!): AuthPayload
   logout: Boolean!
-  signup(idToken: String!): User!
+  signup(idToken: String!): AuthPayload!
   updateAddress(addressInput: String!): User!
   updateContact(contactInput: String!): User!
   updateField(data: UpdateFieldInput, id: String!, modelId: String!): Field!

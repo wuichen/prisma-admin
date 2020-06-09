@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { AppProps } from 'next/app';
+// import { AppProps } from 'next/app';
 import { withApollo } from 'Api/client';
 import { NextPage } from 'next';
 import Layout from 'Layouts/Admin';
@@ -32,6 +32,10 @@ import 'react-multi-carousel/lib/styles.css';
 import 'components/MultiCarousel/MultiCarousel.style.css';
 import '@redq/reuse-modal/lib/index.css';
 import { parseCookies } from 'helper/parse-cookies';
+import { ThemeProvider } from 'styled-components';
+import { theme } from 'theme';
+import AppLayout from 'containers/LayoutContainer/AppLayout';
+import { GlobalStyle } from 'styled/global.style';
 
 // Language translation Config
 const messages = {
@@ -45,6 +49,18 @@ const messages = {
 // need to provide types
 const ExtendedApp: NextPage<any> = ({ Component, pageProps, userAgent, locale, query, pathname, domain }) => {
   const deviceType = useDeviceType(userAgent);
+  const ConditionalLayout = ({ children }) => {
+    if (pathname && pathname.includes('/admin')) {
+      return <Layout>{children}</Layout>;
+    }
+
+    return (
+      <ThemeProvider theme={theme}>
+        <AppLayout deviceType={deviceType}>{children}</AppLayout>
+        <GlobalStyle />
+      </ThemeProvider>
+    );
+  };
   return (
     <>
       <Head>
@@ -58,9 +74,9 @@ const ExtendedApp: NextPage<any> = ({ Component, pageProps, userAgent, locale, q
             <HeaderProvider>
               <StickyProvider>
                 <AuthProvider>
-                  <Layout domain={domain}>
-                    <Component domain={domain} {...pageProps} deviceType={deviceType} />
-                  </Layout>
+                  <ConditionalLayout>
+                    <Component {...pageProps} deviceType={deviceType} />
+                  </ConditionalLayout>
                 </AuthProvider>
               </StickyProvider>
             </HeaderProvider>

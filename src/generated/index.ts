@@ -259,6 +259,12 @@ export type AddressWhereUniqueInput = {
   id?: Maybe<Scalars['Int']>;
 };
 
+export type AuthPayload = {
+  __typename?: 'AuthPayload';
+  token: Scalars['String'];
+  user: User;
+};
+
 export type BatchPayload = {
   __typename?: 'BatchPayload';
   count: Scalars['Int'];
@@ -3468,9 +3474,9 @@ export type Mutation = {
   deleteOneStaff?: Maybe<Staff>;
   deleteOneUser?: Maybe<User>;
   deletePaymentCard: User;
-  login?: Maybe<User>;
+  login?: Maybe<AuthPayload>;
   logout: Scalars['Boolean'];
-  signup: User;
+  signup: AuthPayload;
   updateAddress: User;
   updateContact: User;
   updateField: Field;
@@ -6037,7 +6043,7 @@ export type Query = {
   findOneStaff?: Maybe<Staff>;
   findOneUser?: Maybe<User>;
   getSchema: Schema;
-  me: User;
+  me?: Maybe<User>;
   order: Order;
   orders: Array<Order>;
   product: Product;
@@ -7803,10 +7809,10 @@ export type MeQueryVariables = {};
 
 export type MeQuery = (
   { __typename?: 'Query' }
-  & { me: (
+  & { me?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'email'>
-  ) }
+  )> }
 );
 
 export type LoginMutationVariables = {
@@ -7817,8 +7823,12 @@ export type LoginMutationVariables = {
 export type LoginMutation = (
   { __typename?: 'Mutation' }
   & { login?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id'>
+    { __typename?: 'AuthPayload' }
+    & Pick<AuthPayload, 'token'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email'>
+    ) }
   )> }
 );
 
@@ -7830,8 +7840,12 @@ export type SignupMutationVariables = {
 export type SignupMutation = (
   { __typename?: 'Mutation' }
   & { signup: (
-    { __typename?: 'User' }
-    & Pick<User, 'id'>
+    { __typename?: 'AuthPayload' }
+    & Pick<AuthPayload, 'token'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email'>
+    ) }
   ) }
 );
 
@@ -10513,7 +10527,11 @@ export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariab
 export const LoginDocument = gql`
     mutation login($idToken: String!) {
   login(idToken: $idToken) {
-    id
+    user {
+      id
+      email
+    }
+    token
   }
 }
     `;
@@ -10544,7 +10562,11 @@ export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMu
 export const SignupDocument = gql`
     mutation signup($idToken: String!) {
   signup(idToken: $idToken) {
-    id
+    user {
+      id
+      email
+    }
+    token
   }
 }
     `;
