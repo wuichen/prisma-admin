@@ -32,3 +32,7 @@ yarn-error.log*
 
 #IDE
 .idea
+
+src/**/models/*.tsx
+src/**/models/**/*.ts
+src/**/generated

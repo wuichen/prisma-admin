@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { makeSchema } from '@nexus/schema'
 import * as types from './graphql'
 import { prismaSelectObject } from 'nexus-schema-plugin-prisma-select'
