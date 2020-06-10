@@ -13,6 +13,10 @@ module.exports = {
       jsx: true,
     },
   },
+  'editor.codeActionsOnSave': {
+    'source.fixAll': true,
+    'source.fixAll.eslint': true,
+  },
   rules: {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_|^req|^next' }],
     '@typescript-eslint/no-explicit-any': 0,

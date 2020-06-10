@@ -11,6 +11,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   env: {
+    ADAPTER_URL: process.env.ADAPTER_URL,
     API_URL: process.env.API_URL,
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,

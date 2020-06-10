@@ -9,19 +9,14 @@ const httpClient = (url, options = {}) => {
   options.headers.set('Authorization', `Bearer ${token}`);
   return fetchUtils.fetchJson(url, options);
 };
-const restProvider = simpleRestProvider(
-  'http://localhost:3000/api/rest/original',
-  httpClient
-);
+const restProvider = simpleRestProvider(process.env.ADAPTER_URL, httpClient);
 
 const delayedDataProvider = new Proxy(restProvider, {
   get: (target, name, self) =>
     name === 'then' // as we await for the dataProvider, JS calls then on it. We must trap that call or else the dataProvider will be called with the then method
       ? self
       : (resource, params) =>
-          new Promise((resolve) =>
-            setTimeout(() => resolve(restProvider[name](resource, params)), 500)
-          ),
+          new Promise((resolve) => setTimeout(() => resolve(restProvider[name](resource, params)), 500)),
 });
 
 export default delayedDataProvider;
