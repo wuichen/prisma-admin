@@ -240,7 +240,7 @@ input AddressWhereUniqueInput {
 
 type AuthPayload {
   token: String!
-  user: User!
+  user: User
 }
 
 type BatchPayload {
@@ -3298,6 +3298,8 @@ type Mutation {
   deletePaymentCard(cardId: String!): User!
   login(idToken: String!): AuthPayload
   logout: Boolean!
+  selectCompany(companyId: Int!): AuthPayload
+  selectPlatform(platformId: Int!): AuthPayload
   signup(idToken: String!): AuthPayload!
   updateAddress(addressInput: String!): User!
   updateContact(contactInput: String!): User!

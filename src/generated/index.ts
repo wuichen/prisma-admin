@@ -262,7 +262,7 @@ export type AddressWhereUniqueInput = {
 export type AuthPayload = {
   __typename?: 'AuthPayload';
   token: Scalars['String'];
-  user: User;
+  user?: Maybe<User>;
 };
 
 export type BatchPayload = {
@@ -3476,6 +3476,8 @@ export type Mutation = {
   deletePaymentCard: User;
   login?: Maybe<AuthPayload>;
   logout: Scalars['Boolean'];
+  selectCompany?: Maybe<AuthPayload>;
+  selectPlatform?: Maybe<AuthPayload>;
   signup: AuthPayload;
   updateAddress: User;
   updateContact: User;
@@ -3828,6 +3830,16 @@ export type MutationDeletePaymentCardArgs = {
 
 export type MutationLoginArgs = {
   idToken: Scalars['String'];
+};
+
+
+export type MutationSelectCompanyArgs = {
+  companyId: Scalars['Int'];
+};
+
+
+export type MutationSelectPlatformArgs = {
+  platformId: Scalars['Int'];
 };
 
 
@@ -7825,10 +7837,10 @@ export type LoginMutation = (
   & { login?: Maybe<(
     { __typename?: 'AuthPayload' }
     & Pick<AuthPayload, 'token'>
-    & { user: (
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'id' | 'email'>
-    ) }
+    )> }
   )> }
 );
 
@@ -7842,10 +7854,10 @@ export type SignupMutation = (
   & { signup: (
     { __typename?: 'AuthPayload' }
     & Pick<AuthPayload, 'token'>
-    & { user: (
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'id' | 'email'>
-    ) }
+    )> }
   ) }
 );
 
@@ -7855,6 +7867,40 @@ export type LogoutMutationVariables = {};
 export type LogoutMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'logout'>
+);
+
+export type SelectCompanyMutationVariables = {
+  companyId: Scalars['Int'];
+};
+
+
+export type SelectCompanyMutation = (
+  { __typename?: 'Mutation' }
+  & { selectCompany?: Maybe<(
+    { __typename?: 'AuthPayload' }
+    & Pick<AuthPayload, 'token'>
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email'>
+    )> }
+  )> }
+);
+
+export type SelectPlatformMutationVariables = {
+  platformId: Scalars['Int'];
+};
+
+
+export type SelectPlatformMutation = (
+  { __typename?: 'Mutation' }
+  & { selectPlatform?: Maybe<(
+    { __typename?: 'AuthPayload' }
+    & Pick<AuthPayload, 'token'>
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email'>
+    )> }
+  )> }
 );
 
 export type AddressFieldsFragment = (
@@ -10622,6 +10668,76 @@ export function useLogoutMutation(baseOptions?: ApolloReactHooks.MutationHookOpt
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = ApolloReactCommon.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const SelectCompanyDocument = gql`
+    mutation selectCompany($companyId: Int!) {
+  selectCompany(companyId: $companyId) {
+    user {
+      id
+      email
+    }
+    token
+  }
+}
+    `;
+
+/**
+ * __useSelectCompanyMutation__
+ *
+ * To run a mutation, you first call `useSelectCompanyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSelectCompanyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [selectCompanyMutation, { data, loading, error }] = useSelectCompanyMutation({
+ *   variables: {
+ *      companyId: // value for 'companyId'
+ *   },
+ * });
+ */
+export function useSelectCompanyMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SelectCompanyMutation, SelectCompanyMutationVariables>) {
+        return ApolloReactHooks.useMutation<SelectCompanyMutation, SelectCompanyMutationVariables>(SelectCompanyDocument, baseOptions);
+      }
+export type SelectCompanyMutationHookResult = ReturnType<typeof useSelectCompanyMutation>;
+export type SelectCompanyMutationResult = ApolloReactCommon.MutationResult<SelectCompanyMutation>;
+export type SelectCompanyMutationOptions = ApolloReactCommon.BaseMutationOptions<SelectCompanyMutation, SelectCompanyMutationVariables>;
+export const SelectPlatformDocument = gql`
+    mutation selectPlatform($platformId: Int!) {
+  selectPlatform(platformId: $platformId) {
+    user {
+      id
+      email
+    }
+    token
+  }
+}
+    `;
+
+/**
+ * __useSelectPlatformMutation__
+ *
+ * To run a mutation, you first call `useSelectPlatformMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSelectPlatformMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [selectPlatformMutation, { data, loading, error }] = useSelectPlatformMutation({
+ *   variables: {
+ *      platformId: // value for 'platformId'
+ *   },
+ * });
+ */
+export function useSelectPlatformMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SelectPlatformMutation, SelectPlatformMutationVariables>) {
+        return ApolloReactHooks.useMutation<SelectPlatformMutation, SelectPlatformMutationVariables>(SelectPlatformDocument, baseOptions);
+      }
+export type SelectPlatformMutationHookResult = ReturnType<typeof useSelectPlatformMutation>;
+export type SelectPlatformMutationResult = ApolloReactCommon.MutationResult<SelectPlatformMutation>;
+export type SelectPlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<SelectPlatformMutation, SelectPlatformMutationVariables>;
 export const FindOneAddressDocument = gql`
     query findOneAddress($where: AddressWhereUniqueInput!) {
   findOneAddress(where: $where) {

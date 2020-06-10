@@ -28,3 +28,23 @@ mutation signup($idToken: String!) {
 mutation logout {
   logout
 }
+
+mutation selectCompany($companyId: Int!) {
+  selectCompany(companyId: $companyId) {
+    user {
+      id
+      email
+    }
+    token
+  }
+}
+
+mutation selectPlatform($platformId: Int!) {
+  selectPlatform(platformId: $platformId) {
+    user {
+      id
+      email
+    }
+    token
+  }
+}

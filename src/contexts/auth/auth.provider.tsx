@@ -21,6 +21,8 @@ function reducer(state: any, action: any) {
         isAuthenticated: true,
       };
     case 'SIGN_OUT':
+      localStorage.removeItem('session');
+      localStorage.removeItem('permissions');
       return {
         ...state,
         isAuthenticated: false,

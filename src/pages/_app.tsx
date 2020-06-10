@@ -50,8 +50,12 @@ const messages = {
 const ExtendedApp: NextPage<any> = ({ Component, pageProps, userAgent, locale, query, pathname, domain }) => {
   const deviceType = useDeviceType(userAgent);
   const ConditionalLayout = ({ children }) => {
-    if (pathname && pathname.includes('/admin')) {
-      return <Layout>{children}</Layout>;
+    if (pathname) {
+      if (pathname.includes('/admin')) {
+        return <Layout>{children}</Layout>;
+      } else if (pathname.includes('/dashboard')) {
+        return <>{children}</>;
+      }
     }
 
     return (

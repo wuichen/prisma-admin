@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const PendingOrders: FC<Props> = ({ orders = [], customers = {} }) => {
   const classes = useStyles();
   const translate = useTranslate();
+  console.log(orders);
   return (
     <Card className={classes.root}>
       <CardHeader title={translate('pos.dashboard.pending_orders')} />
@@ -46,8 +47,8 @@ const PendingOrders: FC<Props> = ({ orders = [], customers = {} }) => {
             <ListItemText
               primary={new Date(record.createdAt).toLocaleString('en-GB')}
               secondary={translate('pos.dashboard.order.items', {
-                smart_count: record.orderItem.length,
-                nb_items: record.orderItem.length,
+                smart_count: record.orderItems.length,
+                nb_items: record.orderItems.length,
                 customer_name: customers[record.customerId]
                   ? `${customers[record.customerId].firstName} ${customers[record.customerId].lastName}`
                   : '',

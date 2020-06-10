@@ -5326,7 +5326,7 @@ export interface NexusGenRootTypes {
   }
   AuthPayload: { // root type
     token: string; // String!
-    user: NexusGenRootTypes['User']; // User!
+    user?: NexusGenRootTypes['User'] | null; // User
   }
   BatchPayload: { // root type
     count: number; // Int!
@@ -6141,7 +6141,7 @@ export interface NexusGenFieldTypes {
   }
   AuthPayload: { // field return type
     token: string; // String!
-    user: NexusGenRootTypes['User']; // User!
+    user: NexusGenRootTypes['User'] | null; // User
   }
   BatchPayload: { // field return type
     count: number; // Int!
@@ -6371,6 +6371,8 @@ export interface NexusGenFieldTypes {
     deletePaymentCard: NexusGenRootTypes['User']; // User!
     login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
     logout: boolean; // Boolean!
+    selectCompany: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
+    selectPlatform: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     updateAddress: NexusGenRootTypes['User']; // User!
     updateContact: NexusGenRootTypes['User']; // User!
@@ -6952,6 +6954,12 @@ export interface NexusGenArgTypes {
     }
     login: { // args
       idToken: string; // String!
+    }
+    selectCompany: { // args
+      companyId: number; // Int!
+    }
+    selectPlatform: { // args
+      platformId: number; // Int!
     }
     signup: { // args
       idToken: string; // String!

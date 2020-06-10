@@ -42,7 +42,7 @@ const PlatformGrid = (props) => {
             <CardActions classes={{ spacing: classes.actionSpacer }}>
               <Button
                 onClick={async () => {
-                  props.loginAdmin('/loginPlatform', platform);
+                  props.selectPlatform(platform);
                 }}
               >
                 Enter

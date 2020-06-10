@@ -41,7 +41,7 @@ export interface Customer extends Record {
 }
 
 export interface Order extends Record {
-  orderItem: OrderItemItem[];
+  orderItems: OrderItemItem[];
   date: Date;
   total: number;
 }

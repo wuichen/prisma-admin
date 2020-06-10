@@ -1,4 +1,4 @@
-import { extendType, stringArg, objectType } from '@nexus/schema'
+import { extendType, stringArg, objectType, intArg } from '@nexus/schema'
 // import { compare, hash } from 'bcryptjs'
 // import { sign } from 'jsonwebtoken'
 // import { JWT_SECRET } from '../utils'
@@ -12,7 +12,7 @@ export const AuthPayload = objectType({
   name: 'AuthPayload',
   definition(t) {
     t.string('token')
-    t.field('user', { type: 'User' })
+    t.field('user', { type: 'User', nullable: true })
   },
 })
 
@@ -126,6 +126,66 @@ export const AuthMutations = extendType({
       resolve(_parent, _args, ctx) {
         ctx.res.setHeader('Set-Cookie', `session=`)
         return true
+      },
+    })
+    t.field('selectCompany', {
+      type: 'AuthPayload',
+      nullable: true,
+      args: {
+        companyId: intArg({ nullable: false }),
+      },
+      resolve: async (_parent, { companyId }, { prisma, user }) => {
+        const staffs = await prisma.staff.findMany({
+          where: {
+            company: {
+              id: companyId,
+            },
+            user: {
+              id: user.user_id,
+            },
+          },
+          include: {
+            company: true,
+            user: true,
+          },
+        })
+        if (staffs && staffs.length && staffs.length > 0) {
+          const permissions = { role: staffs[0].role, companyId: staffs[0].company.id }
+          const customToken = await firebaseAdmin.auth().createCustomToken(user.user_id, { permissions })
+          return {
+            token: customToken,
+          }
+        } else {
+          return null
+        }
+      },
+    })
+    t.field('selectPlatform', {
+      type: 'AuthPayload',
+      nullable: true,
+      args: {
+        platformId: intArg({ nullable: false }),
+      },
+      resolve: async (_parent, { platformId }, { prisma, user }) => {
+        const loginUser = await prisma.user.findOne({
+          where: {
+            id: user.user_id,
+          },
+          include: {
+            platforms: true,
+          },
+        })
+        const platforms = loginUser.platforms
+        const selectedPlatform = platforms.find((platform) => platformId === platform.id)
+        if (selectedPlatform) {
+          const permissions = { platformId: selectedPlatform.id }
+          const customToken = await firebaseAdmin.auth().createCustomToken(user.user_id, { permissions })
+          return {
+            token: customToken,
+          }
+        } else {
+          return null
+        }
       },
     })
     // t.field('updatePassword', {

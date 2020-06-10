@@ -20,18 +20,17 @@ const useStyles = makeStyles({
 const OrderItem: FC<FieldProps<Order>> = ({ record }) => {
   const classes = useStyles();
   const translate = useTranslate();
-
   const { loaded, data: products } = useQueryWithStore(
     {
       type: 'getMany',
       resource: 'products',
       payload: {
-        ids: record && record.orderItem ? record.orderItem.map((item) => item.productId) : [],
+        ids: record && record.orderItems ? record.orderItems.map((item) => item.productId) : [],
       },
     },
     {},
     (state: AppState) => {
-      const productIds = record && record.orderItem ? record.orderItem.map((item) => item.productId) : [];
+      const productIds = record && record.orderItems ? record.orderItems.map((item) => item.productId) : [];
 
       return productIds
         .map<Product>((productId: string) => state.admin.resources.products.data[productId] as Product)
@@ -40,8 +39,10 @@ const OrderItem: FC<FieldProps<Order>> = ({ record }) => {
           prev[next.id] = next;
           return prev;
         }, {} as { [key: string]: Product });
-    },
+    }
   );
+  console.log(record);
+  console.log(products);
 
   if (!loaded || !record) return null;
 
@@ -63,8 +64,8 @@ const OrderItem: FC<FieldProps<Order>> = ({ record }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {record && record.orderItem
-            ? record.orderItem.map(
+          {record && record.orderItems
+            ? record.orderItems.map(
                 (item: any) =>
                   products[item.productId] && (
                     <TableRow key={item.productId}>
@@ -85,7 +86,7 @@ const OrderItem: FC<FieldProps<Order>> = ({ record }) => {
                         })}
                       </TableCell>
                     </TableRow>
-                  ),
+                  )
               )
             : []}
           <TableRow>

@@ -44,7 +44,7 @@ const CompanyGrid = (props) => {
               {/* <LinkToRelatedProducts record={data[id]} /> */}
               <Button
                 onClick={async () => {
-                  props.loginAdmin('/loginCompany', company);
+                  props.selectCompany(company);
                 }}
               >
                 Enter

@@ -1,10 +1,11 @@
-import { getField, generateInput } from 'api/utils';
+import { getField, generateInput } from 'api/middleware/utils';
 import pluralize from 'pluralize';
 import { PrismaClient } from '@prisma/client';
+import meMiddleware from 'Api/middleware/me';
 
 const prisma = new PrismaClient();
 
-async function userHandler(req, res) {
+async function handler(req, res) {
   const { query, method, body, headers } = req;
   const resource = pluralize.singular(query[':resource']);
   const id = query[':id'];
@@ -47,4 +48,4 @@ async function userHandler(req, res) {
   }
 }
 
-export default userHandler;
+export default meMiddleware(handler);

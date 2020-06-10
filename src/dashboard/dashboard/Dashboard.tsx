@@ -53,7 +53,7 @@ const Dashboard = (props) => {
     const aMonthAgo = new Date();
     aMonthAgo.setDate(aMonthAgo.getDate() - 30);
     const { data: recentOrders } = await dataProvider.getList('orders', {
-      filter: { date_gte: aMonthAgo.toISOString() },
+      filter: { createdAt_gte: aMonthAgo.toISOString() },
       sort: { field: 'createdAt', order: 'DESC' },
       pagination: { page: 1, perPage: 50 },
     });
@@ -74,7 +74,7 @@ const Dashboard = (props) => {
           revenue: 0,
           nbNewOrders: 0,
           pendingOrders: [],
-        },
+        }
       );
     setState((state) => ({
       ...state,

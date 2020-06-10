@@ -143,7 +143,7 @@ async function seedData() {
           categories.push(existItem);
         }
       }
-
+      const ownerId = db.users[Math.floor(Math.random() * db.users.length)].id;
       try {
         const company = await prisma.company.create({
           data: {
@@ -177,17 +177,31 @@ async function seedData() {
                 return product;
               }),
             },
+            staffs: {
+              create: [
+                {
+                  role: 'admin',
+                  user: {
+                    connect: {
+                      id: ownerId,
+                    },
+                  },
+                },
+              ],
+            },
             owner: {
               connect: {
-                id: db.users[Math.floor(Math.random() * db.users.length)].id,
+                id: ownerId,
               },
             },
           },
           include: {
             products: true,
             platform: true,
+            staffs: true,
           },
         });
+        console.log(company);
         for (let index = 0; index < company.products.length; index++) {
           const product = company.products[index];
           db.products.push(product);
