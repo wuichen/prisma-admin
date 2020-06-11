@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
-import Button from 'components/Button/Button';
+import Button from 'Components/Button/Button';
 import {
   ProductDetailsWrapper,
   ProductPreview,
@@ -39,14 +39,14 @@ import {
   GooglePlus,
   Twitter,
   Linkedin,
-} from 'components/AllSvgIcon';
-import ReadMore from 'components/Truncate/Truncate';
+} from 'Components/AllSvgIcon';
+import ReadMore from 'Components/Truncate/Truncate';
 import { CURRENCY } from 'helper/constant';
 import { Product } from 'interfaces';
 import Products from 'containers/Products/ProductsBook';
 import { FormattedMessage } from 'react-intl';
 import { useCart } from 'contexts/cart/use-cart';
-import { Counter } from 'components/Counter/Counter';
+import { Counter } from 'Components/Counter/Counter';
 
 type ProductDetailsProps = {
   product: Product | any;
@@ -137,14 +137,14 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({ product,
                           {item === 'languages'
                             ? product.meta[item].map(
                                 (lang, i, arr): any =>
-                                  lang.charAt(0).toUpperCase() + lang.slice(1) + (i !== arr.length - 1 ? ', ' : ''),
+                                  lang.charAt(0).toUpperCase() + lang.slice(1) + (i !== arr.length - 1 ? ', ' : '')
                               )
                             : product.meta[item]}
                         </BookMetaItem>
                       </BookMetaTableRow>
                     ) : (
                       ''
-                    ),
+                    )
                   )
                 : ''}
             </BookMetaTable>
@@ -263,7 +263,7 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({ product,
                 </SocialIcon>
               ) : (
                 ''
-              ),
+              )
             )}
         </SocialNetworks>
       </DetailsWrapper>

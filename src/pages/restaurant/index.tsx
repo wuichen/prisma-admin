@@ -3,8 +3,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Modal } from '@redq/reuse-modal';
 // import { withApollo } from 'helper/apollo';
-import StoreNav from 'components/StoreNav/StoreNav';
-import Carousel from 'components/Carousel/Carousel';
+import StoreNav from 'Components/StoreNav/StoreNav';
+import Carousel from 'Components/Carousel/Carousel';
 import Banner from 'containers/Banner/Banner';
 import Sidebar from 'containers/Sidebar/Sidebar';
 import Products from 'containers/Products/ProductsFood';
@@ -19,7 +19,7 @@ import {
 import OFFERS from 'data/offers';
 import BannerImg from 'image/food.png';
 import storeType from 'constants/storeType';
-import { SEO } from 'components/seo';
+import { SEO } from 'Components/seo';
 
 const PAGE_TYPE = 'restaurant';
 

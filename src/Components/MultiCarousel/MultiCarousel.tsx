@@ -1,7 +1,7 @@
 import React from 'react';
 import { themeGet } from '@styled-system/theme-get';
 import Carousel from 'react-multi-carousel';
-import Image from 'components/Image/Image';
+import Image from 'Components/Image/Image';
 import styled from 'styled-components';
 
 const SingleItem = styled.li`

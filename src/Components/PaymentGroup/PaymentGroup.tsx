@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Carousel from 'components/Carousel/Carousel';
+import Carousel from 'Components/Carousel/Carousel';
 import PaymentCard from '../PaymentCard/PaymentCard';
 import { Plus } from '../AllSvgIcon';
 import Button from '../Button/Button';

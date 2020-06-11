@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, Element } from 'react-scroll';
-import { SelectButton } from 'components/Button/Button';
+import { SelectButton } from 'Components/Button/Button';
 import {
   ProductDetailsWrapper,
   ProductPreview,

@@ -1,7 +1,7 @@
 import React from 'react';
 import Router, { useRouter } from 'next/router';
 import { openModal } from '@redq/reuse-modal';
-import SearchBox from 'components/SearchBox/SearchBox';
+import SearchBox from 'Components/SearchBox/SearchBox';
 import { SearchContext } from 'contexts/search/search.context';
 import { AuthContext } from 'contexts/auth/auth.context';
 import AuthenticationForm from '../../SignInOutForm/Form';

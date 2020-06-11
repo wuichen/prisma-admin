@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { themeGet } from '@styled-system/theme-get';
-import NavLink from 'components/NavLink/NavLink';
+import NavLink from 'Components/NavLink/NavLink';
 
 const SidebarWrapper = styled.div`
   width: 100%;

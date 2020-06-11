@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Image from 'components/Image/Image';
+import Image from 'Components/Image/Image';
 import {
   BookCardWrapper,
   BookImageWrapper,

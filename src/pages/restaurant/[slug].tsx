@@ -8,7 +8,7 @@ import { Modal } from '@redq/reuse-modal';
 import ProductSingleWrapper, { ProductSingleContainer } from 'styled/product-single.style';
 import { withApollo } from 'helper/apollo';
 import { GET_VENDOR } from 'graphql/query/vendor.query';
-import { SEO } from 'components/seo';
+import { SEO } from 'Components/seo';
 
 type Props = {
   deviceType?: {

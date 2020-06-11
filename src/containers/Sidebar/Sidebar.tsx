@@ -4,12 +4,12 @@ import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import Sticky from 'react-stickynode';
 import { Scrollbars } from 'react-custom-scrollbars';
-import Popover from 'components/Popover/Popover';
-import { ArrowDropDown, CategoryIcon } from 'components/AllSvgIcon';
+import Popover from 'Components/Popover/Popover';
+import { ArrowDropDown, CategoryIcon } from 'Components/AllSvgIcon';
 import { SearchContext } from 'contexts/search/search.context';
 import { useLocale } from 'contexts/language/language.provider';
 import { useStickyState } from 'contexts/app/app.provider';
-import { SidebarMobileLoader, SidebarLoader } from 'components/Placeholder/Placeholder';
+import { SidebarMobileLoader, SidebarLoader } from 'Components/Placeholder/Placeholder';
 import { FormattedMessage } from 'react-intl';
 import {
   CategoryWrapper,
@@ -20,7 +20,7 @@ import {
   RequestMedicine,
 } from './Sidebar.style';
 
-import { TreeMenu } from 'components/TreeMenu/TreeMenu';
+import { TreeMenu } from 'Components/TreeMenu/TreeMenu';
 
 import { GET_CATEGORIES } from 'graphql/query/category.query';
 

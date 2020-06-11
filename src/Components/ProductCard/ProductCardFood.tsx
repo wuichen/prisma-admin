@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'components/Image/Image';
+import Image from 'Components/Image/Image';
 import { CURRENCY } from 'helper/constant';
 import {
   FoodCardWrapper,

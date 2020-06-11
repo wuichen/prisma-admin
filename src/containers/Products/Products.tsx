@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import gql from 'graphql-tag';
 import { openModal, closeModal } from '@redq/reuse-modal';
-import ProductCard from 'components/ProductCard/ProductCard';
+import ProductCard from 'Components/ProductCard/ProductCard';
 import {
   ProductsRow,
   ProductsCol,
@@ -14,11 +14,11 @@ import {
 } from './Products.style';
 import { CURRENCY } from 'helper/constant';
 import { useQuery } from '@apollo/client';
-import Button from 'components/Button/Button';
-import Loader from 'components/Loader/Loader';
-import Placeholder from 'components/Placeholder/Placeholder';
+import Button from 'Components/Button/Button';
+import Loader from 'Components/Loader/Loader';
+import Placeholder from 'Components/Placeholder/Placeholder';
 import Fade from 'react-reveal/Fade';
-import NoResultFound from 'components/NoResult/NoResult';
+import NoResultFound from 'Components/NoResult/NoResult';
 
 const QuickView = dynamic(() => import('../QuickView/QuickView'));
 

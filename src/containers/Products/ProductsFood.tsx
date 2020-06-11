@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import gql from 'graphql-tag';
-import ProductCard from 'components/ProductCard/ProductCardFood';
+import ProductCard from 'Components/ProductCard/ProductCardFood';
 import {
   ProductsRow,
   ProductsCol,
@@ -11,11 +11,11 @@ import {
   ProductCardWrapper,
 } from './Products.style';
 import { useQuery } from '@apollo/client';
-import Button from 'components/Button/Button';
-import Loader from 'components/Loader/Loader';
-import Placeholder from 'components/Placeholder/Placeholder';
+import Button from 'Components/Button/Button';
+import Loader from 'Components/Loader/Loader';
+import Placeholder from 'Components/Placeholder/Placeholder';
 import Fade from 'react-reveal/Fade';
-import NoResultFound from 'components/NoResult/NoResult';
+import NoResultFound from 'Components/NoResult/NoResult';
 
 import { customerDistance } from 'helper/customerDistance';
 import { formatTime } from 'helper/formatTime';

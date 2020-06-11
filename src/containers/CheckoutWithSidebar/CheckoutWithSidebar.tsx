@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Router from 'next/router';
 import Link from 'next/link';
-import Button from 'components/Button/Button';
-import RadioCard from 'components/RadioCard/RadioCard';
-import RadioGroup from 'components/RadioGroup/RadioGroup';
-import PaymentGroup from 'components/PaymentGroup/PaymentGroup';
-import Loader from 'components/Loader/Loader';
+import Button from 'Components/Button/Button';
+import RadioCard from 'Components/RadioCard/RadioCard';
+import RadioGroup from 'Components/RadioGroup/RadioGroup';
+import PaymentGroup from 'Components/PaymentGroup/PaymentGroup';
+import Loader from 'Components/Loader/Loader';
 import UpdateAddress from './Update/UpdateAddress';
 import UpdateContact from './Update/UpdateContact';
 import StripePaymentForm from '../Payment/StripePaymentForm';
@@ -51,7 +51,7 @@ import CheckoutWrapper, {
   NoProductMsg,
 } from './CheckoutWithSidebar.style';
 
-import { Plus } from 'components/AllSvgIcon';
+import { Plus } from 'Components/AllSvgIcon';
 
 import Sticky from 'react-stickynode';
 import { HeaderContext } from 'contexts/header/header.context';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { themeGet } from '@styled-system/theme-get';
 import Button from '../Button/Button';
-import { Counter as Counters } from 'components/Counter/Counter';
+import { Counter as Counters } from 'Components/Counter/Counter';
 
 export const CardWrapper = styled.div`
   height: 100%;

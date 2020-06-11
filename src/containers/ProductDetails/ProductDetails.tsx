@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
-import Button from 'components/Button/Button';
+import Button from 'Components/Button/Button';
 import {
   ProductDetailsWrapper,
   ProductPreview,
@@ -21,16 +21,16 @@ import {
   MetaItem,
   RelatedItems,
 } from './ProductDetails.style';
-import { LongArrowLeft, CartIcon } from 'components/AllSvgIcon';
-import ReadMore from 'components/Truncate/Truncate';
-import CarouselWithCustomDots from 'components/MultiCarousel/MultiCarousel';
+import { LongArrowLeft, CartIcon } from 'Components/AllSvgIcon';
+import ReadMore from 'Components/Truncate/Truncate';
+import CarouselWithCustomDots from 'Components/MultiCarousel/MultiCarousel';
 import Products from 'containers/Products/Products';
 import { CURRENCY } from 'helper/constant';
 import { Product } from 'interfaces';
 import { FormattedMessage } from 'react-intl';
 import { useLocale } from 'contexts/language/language.provider';
 import { useCart } from 'contexts/cart/use-cart';
-import { Counter } from 'components/Counter/Counter';
+import { Counter } from 'Components/Counter/Counter';
 
 type ProductDetailsProps = {
   product: Product | any;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import gql from 'graphql-tag';
-import ProductCard from 'components/ProductCard/ProductCardBook';
+import ProductCard from 'Components/ProductCard/ProductCardBook';
 import {
   ProductsRow,
   ProductsCol,
@@ -12,11 +12,11 @@ import {
 } from './Products.style';
 import { CURRENCY } from 'helper/constant';
 import { useQuery } from '@apollo/client';
-import Button from 'components/Button/Button';
-import Loader from 'components/Loader/Loader';
-import Placeholder from 'components/Placeholder/Placeholder';
+import Button from 'Components/Button/Button';
+import Loader from 'Components/Loader/Loader';
+import Placeholder from 'Components/Placeholder/Placeholder';
 import Fade from 'react-reveal/Fade';
-import NoResultFound from 'components/NoResult/NoResult';
+import NoResultFound from 'Components/NoResult/NoResult';
 
 const GET_PRODUCTS = gql`
   query getProducts($type: String, $text: String, $category: String, $offset: Int, $limit: Int) {

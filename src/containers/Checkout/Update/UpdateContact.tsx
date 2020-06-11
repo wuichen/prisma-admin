@@ -7,7 +7,7 @@ import { FormikProps, ErrorMessage, Formik, Form } from 'formik';
 import { useMutation } from '@apollo/client';
 import MaskedInput from 'react-text-mask';
 import { ProfileContext } from 'contexts/profile/profile.context';
-import Button from 'components/Button/Button';
+import Button from 'Components/Button/Button';
 import { UPDATE_CONTACT } from 'graphql/mutation/contact';
 import { FieldWrapper, Heading } from './Update.style';
 

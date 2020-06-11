@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Router from 'next/router';
 import gql from 'graphql-tag';
-import Button from 'components/Button/Button';
-import RadioCard from 'components/RadioCard/RadioCard';
-import RadioGroup from 'components/RadioGroup/RadioGroup';
-import Loader from 'components/Loader/Loader';
-import Input from 'components/Input/Input';
-import Uploader from 'components/Uploader/Uploader';
+import Button from 'Components/Button/Button';
+import RadioCard from 'Components/RadioCard/RadioCard';
+import RadioGroup from 'Components/RadioGroup/RadioGroup';
+import Loader from 'Components/Loader/Loader';
+import Input from 'Components/Input/Input';
+import Uploader from 'Components/Uploader/Uploader';
 import UpdateAddress from './Update/UpdateAddress';
 import UpdateContact from './Update/UpdateContact';
 import { DELETE_ADDRESS } from 'graphql/mutation/address';

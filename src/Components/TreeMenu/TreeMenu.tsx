@@ -2,7 +2,7 @@ import React from 'react';
 import { usePrevious, useMeasure } from 'helper/hooks';
 import { useSpring, animated } from 'react-spring';
 import { Frame, Title, Content, Header, IconWrapper } from './TreeMenu.style';
-import * as Icons from 'components/AllSvgIcon';
+import * as Icons from 'Components/AllSvgIcon';
 const Tree = React.memo(({ children, name, icon, isOpen, onClick, depth, defaultOpen = false }: any) => {
   const previous = usePrevious(isOpen);
   const [bind, { height: viewHeight }] = useMeasure();

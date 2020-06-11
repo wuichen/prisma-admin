@@ -12,11 +12,11 @@ import {
   Input,
   Divider,
 } from './SignInOutForm.style';
-import { Facebook, Google } from 'components/AllSvgIcon';
+import { Facebook, Google } from 'Components/AllSvgIcon';
 import { AuthContext } from 'contexts/auth/auth.context';
 import { FormattedMessage } from 'react-intl';
 import { closeModal } from '@redq/reuse-modal';
-import Image from 'components/Image/Image';
+import Image from 'Components/Image/Image';
 import PickBazar from '../../image/PickBazar.png';
 import firebase from 'lib/firebase/client';
 import { useLoginMutation } from 'generated';

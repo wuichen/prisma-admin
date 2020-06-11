@@ -1,7 +1,7 @@
 import React, { useContext, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { Waypoint } from 'react-waypoint';
-import SearchBox from 'components/SearchBox/SearchBox';
+import SearchBox from 'Components/SearchBox/SearchBox';
 import { SearchContext } from 'contexts/search/search.context';
 import { useStickyDispatch } from 'contexts/app/app.provider';
 import { FormattedMessage } from 'react-intl';
@@ -42,7 +42,7 @@ const Banner: React.FC<BannerProps> = ({ imageUrl, intlTitleId, intlDescriptionI
         pathname: pathname === '/' ? `${pathname}grocery` : pathname,
         query: { ...urlState },
       },
-      { shallow: true },
+      { shallow: true }
     );
   }
   const useDispatch = useStickyDispatch();

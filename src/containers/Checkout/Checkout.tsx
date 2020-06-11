@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Router from 'next/router';
-import Button from 'components/Button/Button';
-import RadioCard from 'components/RadioCard/RadioCard';
-import RadioGroup from 'components/RadioGroup/RadioGroup';
-import PaymentGroup from 'components/PaymentGroup/PaymentGroup';
-import Loader from 'components/Loader/Loader';
+import Button from 'Components/Button/Button';
+import RadioCard from 'Components/RadioCard/RadioCard';
+import RadioGroup from 'Components/RadioGroup/RadioGroup';
+import PaymentGroup from 'Components/PaymentGroup/PaymentGroup';
+import Loader from 'Components/Loader/Loader';
 import UpdateAddress from './Update/UpdateAddress';
 import UpdateContact from './Update/UpdateContact';
 import StripePaymentForm from '../Payment/StripePaymentForm';
@@ -30,7 +30,7 @@ import CheckoutWrapper, {
   ErrorMsg,
 } from './Checkout.style';
 
-import CouponBox, { CouponDisplay } from 'components/CouponBox/CouponBox';
+import CouponBox, { CouponDisplay } from 'Components/CouponBox/CouponBox';
 import { ProfileContext } from 'contexts/profile/profile.context';
 import { FormattedMessage } from 'react-intl';
 import { useCart } from 'contexts/cart/use-cart';

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import NoResultSvg from './no-result.svg';
 import { NoResultWrapper, ImageWrapper, ButtonWrapper } from './NoResult.style';
 import Button from '../Button/Button';
-import { ArrowPrev } from 'components/AllSvgIcon';
+import { ArrowPrev } from 'Components/AllSvgIcon';
 import { SearchContext } from 'contexts/search/search.context';
 import { FormattedMessage } from 'react-intl';
 

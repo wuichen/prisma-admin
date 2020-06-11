@@ -18,12 +18,12 @@ import {
   CouponCode,
   ErrorMsg,
 } from './CartItemCard.style';
-import { CloseIcon } from 'components/AllSvgIcon';
-import { ShoppingBagLarge } from 'components/AllSvgIcon';
+import { CloseIcon } from 'Components/AllSvgIcon';
+import { ShoppingBagLarge } from 'Components/AllSvgIcon';
 import { CURRENCY } from 'helper/constant';
 import { FormattedMessage } from 'react-intl';
 import { useLocale } from 'contexts/language/language.provider';
-import CouponBox from 'components/CouponBox/CouponBox';
+import CouponBox from 'Components/CouponBox/CouponBox';
 
 import { Scrollbars } from 'react-custom-scrollbars';
 import { useCart } from 'contexts/cart/use-cart';

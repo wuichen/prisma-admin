@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { SEO } from 'components/seo';
+import { SEO } from 'Components/seo';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import ProductDetails from 'containers/ProductDetails/ProductDetails';

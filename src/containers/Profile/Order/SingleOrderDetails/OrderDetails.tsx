@@ -11,7 +11,7 @@ import {
   OrderTableWrapper,
   OrderTable,
 } from './OrderDetails.style';
-import Progress from 'components/ProgressBox/ProgressBox';
+import Progress from 'Components/ProgressBox/ProgressBox';
 import { CURRENCY } from 'helper/constant';
 import { FormattedMessage } from 'react-intl';
 

@@ -12,7 +12,7 @@ import {
 } from './SignInOutForm.style';
 import { FormattedMessage } from 'react-intl';
 import { AuthContext } from 'contexts/auth/auth.context';
-import Image from 'components/Image/Image';
+import Image from 'Components/Image/Image';
 import PickBazar from '../../image/PickBazar.png';
 
 export default function ForgotPassModal() {

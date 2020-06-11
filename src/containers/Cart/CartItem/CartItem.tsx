@@ -1,5 +1,5 @@
 import React from 'react';
-import { Counter } from 'components/Counter/Counter';
+import { Counter } from 'Components/Counter/Counter';
 import { CURRENCY } from 'helper/constant';
 import { CloseIcon } from 'assets/icons/close';
 import { ItemBox, Image, Information, Name, Price, Weight, Total, RemoveButton } from './CartItem.style';

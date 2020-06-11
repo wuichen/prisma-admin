@@ -1,10 +1,10 @@
 import React from 'react';
-import Image from 'components/Image/Image';
+import Image from 'Components/Image/Image';
 import Button from '../Button/Button';
 import { PlusOutline } from '../AllSvgIcon';
 import { CardWrapper, ImageWrapper, InfoWrapper, Title, Price, Unit, CartButton, Counter } from './MedicineCard.style';
 import { useCart } from 'contexts/cart/use-cart';
-// import { Counter } from 'components/Counter/Counter';
+// import { Counter } from 'Components/Counter/Counter';
 
 type ProductCardProps = {
   title: string;

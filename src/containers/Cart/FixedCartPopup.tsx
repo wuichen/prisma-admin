@@ -2,7 +2,7 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { openModal, closeModal } from '@redq/reuse-modal';
 import FixedCart from './FixedCart';
-import CartPopupButton from 'components/CartPopup/CartPopupButton';
+import CartPopupButton from 'Components/CartPopup/CartPopupButton';
 import { CURRENCY } from 'helper/constant';
 import { FormattedMessage } from 'react-intl';
 import { useCart } from 'contexts/cart/use-cart';

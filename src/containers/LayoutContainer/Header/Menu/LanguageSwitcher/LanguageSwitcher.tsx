@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, SelectedItem, Flag, MenuItem } from './LanguageSwitcher.style';
-import Popover from 'components/Popover/Popover';
+import Popover from 'Components/Popover/Popover';
 import { FormattedMessage } from 'react-intl';
-import { DEFlag, CNFlag, USFlag, ILFlag, ESFlag, SAFlag } from 'components/AllSvgIcon';
+import { DEFlag, CNFlag, USFlag, ILFlag, ESFlag, SAFlag } from 'Components/AllSvgIcon';
 import { useLocale } from 'contexts/language/language.provider';
 
 const LANGUAGES = [

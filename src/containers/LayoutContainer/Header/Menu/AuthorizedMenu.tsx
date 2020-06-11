@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import NavLink from 'components/NavLink/NavLink';
+import NavLink from 'Components/NavLink/NavLink';
 
 import {
   PROCEED_TO_CHECKOUT_PAGE,

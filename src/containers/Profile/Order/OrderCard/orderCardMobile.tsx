@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from 'rc-table';
 import Collapse, { Panel } from 'rc-collapse';
-import Progress from 'components/ProgressBox/ProgressBox';
+import Progress from 'Components/ProgressBox/ProgressBox';
 
 import {
   OrderListHeader,

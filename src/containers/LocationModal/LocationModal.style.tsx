@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { themeGet } from '@styled-system/theme-get';
-import Buttons from 'components/Button/Button';
+import Buttons from 'Components/Button/Button';
 
 export const Wrapper = styled.div`
   text-align: center;

@@ -14,8 +14,8 @@ import {
   Button,
   Input,
 } from './LocationModal.style';
-import { GiftBox } from 'components/AllSvgIcon';
-import Image from 'components/Image/Image';
+import { GiftBox } from 'Components/AllSvgIcon';
+import Image from 'Components/Image/Image';
 import PickBazar from '../../image/PickBazar.png';
 
 export default function LocationModal() {

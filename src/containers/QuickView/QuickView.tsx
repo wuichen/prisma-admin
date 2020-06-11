@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'next/router';
 import { closeModal } from '@redq/reuse-modal';
-import Button from 'components/Button/Button';
+import Button from 'Components/Button/Button';
 import {
   QuickViewWrapper,
   ProductDetailsWrapper,
@@ -24,12 +24,12 @@ import {
   ModalClose,
 } from './QuickView.style';
 import { CURRENCY } from 'helper/constant';
-import { CloseIcon, CartIcon } from 'components/AllSvgIcon';
-import ReadMore from 'components/Truncate/Truncate';
-import CarouselWithCustomDots from 'components/MultiCarousel/MultiCarousel';
+import { CloseIcon, CartIcon } from 'Components/AllSvgIcon';
+import ReadMore from 'Components/Truncate/Truncate';
+import CarouselWithCustomDots from 'Components/MultiCarousel/MultiCarousel';
 import { useLocale } from 'contexts/language/language.provider';
 import { useCart } from 'contexts/cart/use-cart';
-import { Counter } from 'components/Counter/Counter';
+import { Counter } from 'Components/Counter/Counter';
 
 type QuickViewProps = {
   modalProps: any;

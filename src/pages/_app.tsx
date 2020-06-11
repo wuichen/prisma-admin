@@ -29,7 +29,7 @@ import 'rc-drawer/assets/index.css';
 import 'rc-table/assets/index.css';
 import 'rc-collapse/assets/index.css';
 import 'react-multi-carousel/lib/styles.css';
-import 'components/MultiCarousel/MultiCarousel.style.css';
+import 'Components/MultiCarousel/MultiCarousel.style.css';
 import '@redq/reuse-modal/lib/index.css';
 import { parseCookies } from 'helper/parse-cookies';
 import { ThemeProvider } from 'styled-components';

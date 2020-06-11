@@ -1,10 +1,10 @@
 import React from 'react';
-import Image from 'components/Image/Image';
+import Image from 'Components/Image/Image';
 import Button from '../Button/Button';
 import { CartIcon } from '../AllSvgIcon';
 import { ProductCardWrapper, ProductImageWrapper, ProductInfo, DiscountPercent } from './ProductCard.style';
 import { useCart } from 'contexts/cart/use-cart';
-import { Counter } from 'components/Counter/Counter';
+import { Counter } from 'Components/Counter/Counter';
 import { cartAnimation } from 'helper/cart-animation';
 
 type ProductCardProps = {

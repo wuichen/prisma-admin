@@ -1,6 +1,6 @@
 import React from 'react';
 import { MainMenu, SelectedItem, Icon, Arrow, LeftMenuBox } from './LeftMenu.style';
-import Popover from 'components/Popover/Popover';
+import Popover from 'Components/Popover/Popover';
 import {
   MenuDown,
   FruitsVegetable,
@@ -11,8 +11,8 @@ import {
   BookIcon,
   MedicineIcon,
   Restaurant,
-} from 'components/AllSvgIcon';
-import NavLink from 'components/NavLink/NavLink';
+} from 'Components/AllSvgIcon';
+import NavLink from 'Components/NavLink/NavLink';
 import {
   GROCERY_PAGE,
   CLOTHING,
@@ -26,7 +26,7 @@ import {
 import { useRouter } from 'next/router';
 import { FormattedMessage } from 'react-intl';
 
-import Logo from 'components/Logo/Logo';
+import Logo from 'Components/Logo/Logo';
 const MENU_ITEMS = [
   {
     link: GROCERY_PAGE,

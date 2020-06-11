@@ -12,13 +12,13 @@ import {
   SearchModalWrapper,
   SearchModalClose,
 } from './Header.style';
-import SearchBox from 'components/SearchBox/SearchBox';
+import SearchBox from 'Components/SearchBox/SearchBox';
 import { SearchContext } from 'contexts/search/search.context';
 import { HeaderContext } from 'contexts/header/header.context';
 import LogoImage from 'image/logo.svg';
 
-import { SearchIcon, LongArrowLeft } from 'components/AllSvgIcon';
-import Logo from 'components/Logo/Logo';
+import { SearchIcon, LongArrowLeft } from 'Components/AllSvgIcon';
+import Logo from 'Components/Logo/Logo';
 import LanguageSwitcher from './Menu/LanguageSwitcher/LanguageSwitcher';
 import { isCategoryPage } from '../is-home-page';
 import useDimensions from 'helper/useComponentSize';
