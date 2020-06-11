@@ -13,17 +13,17 @@ const handler = async (req, res) => {
   console.log(req.user);
   const { query, method, headers, body, user } = req;
   const resource = pluralize.singular(query[':resource']);
-  const { pagination, sort, range } = query;
-  const filter = JSON.parse(query.filter);
-  // process from and to
-  let from, to;
-  if (range) {
-    const rangeArray = JSON.parse(range);
-    from = rangeArray[0];
-    to = rangeArray[1];
-  }
   switch (method) {
     case 'GET':
+      const { pagination, sort, range } = query;
+      const filter = JSON.parse(query.filter);
+      // process from and to
+      let from, to;
+      if (range) {
+        const rangeArray = JSON.parse(range);
+        from = rangeArray[0];
+        to = rangeArray[1];
+      }
       let findMany;
       if (resource === 'order') {
         findMany = await order.findMany(

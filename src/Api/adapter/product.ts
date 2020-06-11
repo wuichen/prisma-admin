@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { getField, generateInput, buildQuery, companyWhereFilter } from 'Api/middleware/adapter'
-
+import slugify from 'slugify'
 const prisma = new PrismaClient()
 
 const findOne = (id, user) => {
@@ -73,10 +73,28 @@ const findMany = async ({ resource, pagination, sort, filter, from, to }, user) 
   return { data, total }
 }
 
-const createOne = (body, user) => {
-  return prisma.product.create({
-    data: generateInput(body),
+const createOne = async (body, user) => {
+  if (!user || !user.permissions || !user.permissions.companyId) {
+    throw new Error('CompanyId not provided')
+  }
+  const company = await prisma.company.findOne({
+    where: {
+      id: user.permissions.companyId,
+    },
   })
+  if (company) {
+    let data = generateInput(body)
+    data.type = company.platformSlug
+    data.company = {
+      connect: { id: company.id },
+    }
+    data.slug = slugify(data.name) + Math.floor(Math.random() * 1000).toString()
+    return prisma.product.create({
+      data,
+    })
+  } else {
+    throw new Error('CompanyId doesnt exist')
+  }
 }
 
 export const product = {

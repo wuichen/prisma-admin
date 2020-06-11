@@ -2,6 +2,7 @@ import { verify } from 'jsonwebtoken'
 import { NextApiRequest } from 'next'
 import cookie from 'cookie'
 import getConfig from 'next/config'
+import pluralize from 'pluralize'
 
 export const JWT_SECRET = getConfig()?.serverRuntimeConfig.JWT_SECRET ?? null
 
@@ -142,35 +143,49 @@ export const generateInput = (body) => {
     if (body.hasOwnProperty(key)) {
       const value = body[key]
       const thisField = getField(key)
-
-      // TODO: only dealing with array strings currently.
-      // not handling model object saves
-      if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'string') {
-        query = {
-          ...query,
-          [key]: {
-            set: value,
-          },
-        }
-      } else if (key.endsWith('Id')) {
-        query = {
-          ...query,
-          [thisField]: {
-            connect: {
-              id: parseInt(value),
+      if (Array.isArray(value) && value.length > 0) {
+        // not dealing with objects now
+        if (typeof value[0] === 'object') {
+          query = {
+            ...query,
+          }
+          // map array of ids to model
+        } else if (key.endsWith('Id')) {
+          const field = pluralize.plural(thisField)
+          query = {
+            ...query,
+            [field]: {
+              connect: value.map((item) => {
+                return {
+                  id: parseInt(item),
+                }
+              }),
             },
-          },
-        }
-      }
-      // Skipping model fields
-      else if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
-        query = {
-          ...query,
+          }
+        } else {
+          // map array of strings to field
+          query = {
+            ...query,
+            [key]: {
+              set: value,
+            },
+          }
         }
       } else {
-        query = {
-          ...query,
-          [key]: value,
+        if (key.endsWith('Id')) {
+          query = {
+            ...query,
+            [thisField]: {
+              connect: {
+                id: parseInt(value),
+              },
+            },
+          }
+        } else {
+          query = {
+            ...query,
+            [key]: value,
+          }
         }
       }
     }

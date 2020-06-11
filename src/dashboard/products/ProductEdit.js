@@ -9,6 +9,8 @@ import {
   Pagination,
   ReferenceInput,
   ReferenceManyField,
+  ReferenceArrayInput,
+  SelectArrayInput,
   SelectInput,
   TabbedForm,
   TextField,
@@ -47,27 +49,18 @@ const ProductEdit = (props) => {
   return (
     <Edit {...props} title={<ProductTitle />}>
       <TabbedForm>
-        <FormTab
-          label="resources.products.tabs.image"
-          contentClassName={classes.tab}
-        >
+        <FormTab label="resources.products.tabs.image" contentClassName={classes.tab}>
           <Poster />
           <TextInput source="image" fullWidth validate={requiredValidate} />
           <TextInput source="thumbnail" fullWidth validate={requiredValidate} />
         </FormTab>
-        <FormTab
-          label="resources.products.tabs.details"
-          path="details"
-          contentClassName={classes.tab}
-        >
-          <TextInput source="reference" validate={requiredValidate} />
+        <FormTab label="resources.products.tabs.details" path="details" contentClassName={classes.tab}>
+          <TextInput source="name" validate={requiredValidate} />
           <NumberInput
             source="price"
             className={classes.price}
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">€</InputAdornment>
-              ),
+              startAdornment: <InputAdornment position="start">€</InputAdornment>,
             }}
             validate={requiredValidate}
           />
@@ -76,9 +69,7 @@ const ProductEdit = (props) => {
             className={classes.width}
             formClassName={classes.widthFormGroup}
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">cm</InputAdornment>
-              ),
+              endAdornment: <InputAdornment position="start">cm</InputAdornment>,
             }}
             validate={requiredValidate}
           />
@@ -87,35 +78,17 @@ const ProductEdit = (props) => {
             className={classes.height}
             formClassName={classes.heightFormGroup}
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">cm</InputAdornment>
-              ),
+              endAdornment: <InputAdornment position="start">cm</InputAdornment>,
             }}
             validate={requiredValidate}
           />
-          <ReferenceInput
-            source="categoryId"
-            reference="categories"
-            validate={requiredValidate}
-          >
-            <SelectInput source="name" />
-          </ReferenceInput>
-          <NumberInput
-            source="stock"
-            className={classes.stock}
-            validate={requiredValidate}
-          />
+          <ReferenceArrayInput source="categoryId" reference="categories" validate={requiredValidate}>
+            <SelectArrayInput source="name" />
+          </ReferenceArrayInput>
+          <NumberInput source="stock" className={classes.stock} validate={requiredValidate} />
         </FormTab>
-        <FormTab
-          label="resources.products.tabs.description"
-          path="description"
-          contentClassName={classes.tab}
-        >
-          <RichTextInput
-            source="description"
-            label=""
-            validate={requiredValidate}
-          />
+        <FormTab label="resources.products.tabs.description" path="description" contentClassName={classes.tab}>
+          <RichTextInput source="description" label="" validate={requiredValidate} />
         </FormTab>
         <FormTab label="resources.products.tabs.reviews" path="reviews">
           <ReferenceManyField

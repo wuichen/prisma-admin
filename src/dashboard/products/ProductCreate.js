@@ -4,6 +4,8 @@ import {
   FormTab,
   NumberInput,
   ReferenceInput,
+  SelectArrayInput,
+  ReferenceArrayInput,
   SelectInput,
   TabbedForm,
   TextInput,
@@ -34,15 +36,13 @@ const ProductCreate = (props) => {
           <TextInput source="thumbnail" fullWidth validate={required()} />
         </FormTab>
         <FormTab label="resources.products.tabs.details" path="details">
-          <TextInput source="reference" validate={required()} />
+          <TextInput source="name" validate={required()} />
           <NumberInput
             source="price"
             validate={required()}
             className={classes.price}
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">€</InputAdornment>
-              ),
+              startAdornment: <InputAdornment position="start">€</InputAdornment>,
             }}
           />
           <NumberInput
@@ -51,9 +51,7 @@ const ProductCreate = (props) => {
             className={classes.width}
             formClassName={classes.widthFormGroup}
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">cm</InputAdornment>
-              ),
+              endAdornment: <InputAdornment position="start">cm</InputAdornment>,
             }}
           />
           <NumberInput
@@ -62,19 +60,13 @@ const ProductCreate = (props) => {
             className={classes.height}
             formClassName={classes.heightFormGroup}
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">cm</InputAdornment>
-              ),
+              endAdornment: <InputAdornment position="start">cm</InputAdornment>,
             }}
           />
-          <ReferenceInput source="categoryId" reference="categories" allowEmpty>
-            <SelectInput source="name" />
-          </ReferenceInput>
-          <NumberInput
-            source="stock"
-            validate={required()}
-            className={classes.stock}
-          />
+          <ReferenceArrayInput source="categoryId" reference="categories" allowEmpty>
+            <SelectArrayInput source="name" />
+          </ReferenceArrayInput>
+          <NumberInput source="stock" validate={required()} className={classes.stock} />
         </FormTab>
         <FormTab label="resources.products.tabs.description" path="description">
           <RichTextInput source="description" label="" />
