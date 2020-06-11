@@ -388,13 +388,13 @@ input CardWhereUniqueInput {
 }
 
 type Category {
-  categoryId: Int
   children(cursor: CategoryWhereUniqueInput, orderBy: CategoryOrderByInput, skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
   companies(cursor: CompanyWhereUniqueInput, orderBy: CompanyOrderByInput, skip: Int, take: Int, where: CompanyWhereInput): [Company!]!
   icon: String
   id: Int!
   name: String!
   parent: Category
+  parentId: Int
   platform: Platform!
   platformId: Int!
   products(cursor: ProductWhereUniqueInput, orderBy: ProductOrderByInput, skip: Int, take: Int, where: ProductWhereInput): [Product!]!
@@ -501,10 +501,10 @@ input CategoryFilter {
 }
 
 input CategoryOrderByInput {
-  categoryId: OrderByArg
   icon: OrderByArg
   id: OrderByArg
   name: OrderByArg
+  parentId: OrderByArg
   platformId: OrderByArg
   slug: OrderByArg
   type: OrderByArg
@@ -512,7 +512,6 @@ input CategoryOrderByInput {
 
 input CategoryScalarWhereInput {
   AND: [CategoryScalarWhereInput!]
-  categoryId: NullableIntFilter
   children: CategoryFilter
   companies: CompanyFilter
   icon: NullableStringFilter
@@ -520,6 +519,7 @@ input CategoryScalarWhereInput {
   name: StringFilter
   NOT: [CategoryScalarWhereInput!]
   OR: [CategoryScalarWhereInput!]
+  parentId: NullableIntFilter
   platformId: IntFilter
   products: ProductFilter
   slug: StringFilter
@@ -728,7 +728,6 @@ input CategoryUpsertWithWhereUniqueWithoutProductsInput {
 
 input CategoryWhereInput {
   AND: [CategoryWhereInput!]
-  categoryId: NullableIntFilter
   children: CategoryFilter
   companies: CompanyFilter
   icon: NullableStringFilter
@@ -737,6 +736,7 @@ input CategoryWhereInput {
   NOT: [CategoryWhereInput!]
   OR: [CategoryWhereInput!]
   parent: CategoryWhereInput
+  parentId: NullableIntFilter
   platform: PlatformWhereInput
   platformId: IntFilter
   products: ProductFilter

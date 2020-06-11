@@ -381,10 +381,11 @@ export const Query = extendType({
             children: true,
           },
         })
+        console.log(categories)
         const topLevelCategories = []
         for (let index = 0; index < categories.length; index++) {
           const element = categories[index]
-          if (element.children && element.children.length > 0) {
+          if (!element.parentId) {
             topLevelCategories.push(element)
           }
         }

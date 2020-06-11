@@ -1,14 +1,13 @@
 import React from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Modal } from '@redq/reuse-modal';
 // import { withApollo } from 'helper/apollo';
-import { SEO } from 'components/seo';
 import StoreNav from 'components/StoreNav/StoreNav';
 import Carousel from 'components/Carousel/Carousel';
 import Banner from 'containers/Banner/Banner';
 import Sidebar from 'containers/Sidebar/Sidebar';
-import Products from 'containers/Products/Products';
-import CartPopUp from 'containers/Cart/CartPopUp';
+import Products from 'containers/Products/ProductsFood';
 import {
   MainContentArea,
   SidebarSection,
@@ -18,10 +17,11 @@ import {
 } from 'styled/pages.style';
 // Static Data Import Here
 import OFFERS from 'data/offers';
-import BannerImg from 'image/grocery.png';
+import BannerImg from 'image/food.png';
 import storeType from 'constants/storeType';
+import { SEO } from 'components/seo';
 
-const PAGE_TYPE = 'grocery';
+const PAGE_TYPE = 'restaurant';
 
 function HomePage({ deviceType }) {
   const { query } = useRouter();
@@ -37,9 +37,9 @@ function HomePage({ deviceType }) {
 
   return (
     <>
-      <SEO title="Grocery - PickBazar" description="Grocery Details" />
+      <SEO title="Restaurant - PickBazar" description="Restaurant Details" />
       <Modal>
-        <Banner intlTitleId="groceriesTitle" intlDescriptionId="groceriesSubTitle" imageUrl={BannerImg} />
+        <Banner intlTitleId="foodsTitle" intlDescriptionId="foodsSubTitle" imageUrl={BannerImg} />
 
         {deviceType.desktop ? (
           <>
@@ -77,7 +77,6 @@ function HomePage({ deviceType }) {
             </ContentSection>
           </MainContentArea>
         )}
-        <CartPopUp deviceType={deviceType} />
       </Modal>
     </>
   );

@@ -68,7 +68,7 @@ const ExtendedApp: NextPage<any> = ({ Component, pageProps, userAgent, locale, q
   return (
     <>
       <Head>
-        <title>Prisma Admin</title>
+        <title>Mercy</title>
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       </Head>
@@ -112,10 +112,13 @@ export function getSubdomain(req: any) {
     host = window.location.host;
   }
   if (host) {
-    sub = host.split('localhost:3000')[0];
+    if (host.includes('localhost')) {
+      return 'grocery';
+    }
+    sub = host.split('mercy-app')[0];
     if (sub) {
       return sub.split('.')[0];
     }
   }
-  return 'www';
+  return 'grocery';
 }

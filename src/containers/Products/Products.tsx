@@ -160,7 +160,7 @@ export const Products: React.FC<ProductsProps> = ({ deviceType, type, fetchLimit
             <ProductCardWrapper>
               <Fade duration={800} delay={index * 10} style={{ height: '100%' }}>
                 <ProductCard
-                  title={item.name}
+                  name={item.name}
                   description={item.description}
                   image={item.image}
                   weight={item.unit}

@@ -39,7 +39,7 @@ type QuickViewProps = {
 
 const QuickView: React.FunctionComponent<QuickViewProps> = ({ modalProps, deviceType, onModalClose }) => {
   const { addItem, removeItem, isInCart, getItem } = useCart();
-  const { id, type, title, unit, price, discountInPercent, salePrice, description, gallery, categories } = modalProps;
+  const { id, type, name, unit, price, discountInPercent, salePrice, description, gallery, categories } = modalProps;
 
   const { isRtl } = useLocale();
 
@@ -80,7 +80,7 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({ modalProps, device
           <ProductInfoWrapper dir={isRtl ? 'rtl' : 'ltr'}>
             <ProductInfo>
               <ProductTitlePriceWrapper>
-                <ProductTitle>{title}</ProductTitle>
+                <ProductTitle>{name}</ProductTitle>
                 <ProductPriceWrapper>
                   {discountInPercent ? (
                     <SalePrice>

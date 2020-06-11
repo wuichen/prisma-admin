@@ -29,7 +29,7 @@ type ProductCardProps = {
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  title,
+  name,
   image,
   weight,
   price,
@@ -64,7 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <ProductCardWrapper onClick={onClick} className="product-card">
       <ProductImageWrapper>
-        <Image url={image} className="product-image" style={{ position: 'relative' }} alt={title} />
+        <Image url={image} className="product-image" style={{ position: 'relative' }} alt={name} />
         {discountInPercent ? (
           <>
             <DiscountPercent>{discountInPercent}%</DiscountPercent>
@@ -74,7 +74,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
       </ProductImageWrapper>
       <ProductInfo>
-        <h3 className="product-title">{title}</h3>
+        <h3 className="product-title">{name}</h3>
         <span className="product-weight">{weight}</span>
         <div className="product-meta">
           <div className="productPriceWrapper">

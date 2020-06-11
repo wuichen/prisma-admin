@@ -18,7 +18,7 @@ type Props = {
 export const RightMenu: React.FC<Props> = ({ onLogout, avatar, isAuthenticated, onJoin }) => {
   return (
     <RightMenuBox>
-      <NavLink className="menu-item" href={OFFER_PAGE} label="Offer" intlId="navlinkOffer" />
+      {/* <NavLink className="menu-item" href={OFFER_PAGE} label="Offer" intlId="navlinkOffer" /> */}
       <NavLink
         className="menu-item"
         href={HELP_PAGE}

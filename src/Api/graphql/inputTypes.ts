@@ -196,7 +196,7 @@ export const CategoryWhereInput = inputObjectType({
     t.field('slug', { type: 'StringFilter' })
     t.field('type', { type: 'StringFilter' })
     t.field('icon', { type: 'NullableStringFilter' })
-    t.field('categoryId', { type: 'NullableIntFilter' })
+    t.field('parentId', { type: 'NullableIntFilter' })
     t.field('children', { type: 'CategoryFilter' })
     t.field('companies', { type: 'CompanyFilter' })
     t.field('AND', { type: 'CategoryWhereInput', list: true })
@@ -3572,7 +3572,7 @@ export const CategoryScalarWhereInput = inputObjectType({
     t.field('slug', { type: 'StringFilter' })
     t.field('type', { type: 'StringFilter' })
     t.field('icon', { type: 'NullableStringFilter' })
-    t.field('categoryId', { type: 'NullableIntFilter' })
+    t.field('parentId', { type: 'NullableIntFilter' })
     t.field('children', { type: 'CategoryFilter' })
     t.field('companies', { type: 'CompanyFilter' })
     t.field('AND', { type: 'CategoryScalarWhereInput', list: true })
@@ -8269,7 +8269,7 @@ export const CategoryOrderByInput = inputObjectType({
     t.field('slug', { type: 'OrderByArg' })
     t.field('type', { type: 'OrderByArg' })
     t.field('icon', { type: 'OrderByArg' })
-    t.field('categoryId', { type: 'OrderByArg' })
+    t.field('parentId', { type: 'OrderByArg' })
   },
 })
 

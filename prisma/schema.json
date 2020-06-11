@@ -3014,8 +3014,8 @@
           "order": -1
         },
         {
-          "id": "Category.categoryId",
-          "name": "categoryId",
+          "id": "Category.parentId",
+          "name": "parentId",
           "type": "Int",
           "isId": false,
           "unique": false,
@@ -3023,7 +3023,7 @@
           "required": false,
           "kind": "scalar",
           "relationField": true,
-          "title": "Category Id",
+          "title": "Parent Id",
           "create": false,
           "update": false,
           "editor": false,

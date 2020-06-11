@@ -64,7 +64,7 @@
     "lowdb": "1.0.0",
     "mobile-detect": "^1.4.4",
     "moment": "2.24.0",
-    "next": "latest",
+    "next": "^9.4.4",
     "next-compose-plugins": "^2.2.0",
     "next-cookies": "^2.0.3",
     "next-fonts": "^1.0.3",

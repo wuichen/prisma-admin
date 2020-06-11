@@ -413,13 +413,13 @@ export type CardWhereUniqueInput = {
 
 export type Category = {
   __typename?: 'Category';
-  categoryId?: Maybe<Scalars['Int']>;
   children: Array<Category>;
   companies: Array<Company>;
   icon?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   name: Scalars['String'];
   parent?: Maybe<Category>;
+  parentId?: Maybe<Scalars['Int']>;
   platform: Platform;
   platformId: Scalars['Int'];
   products: Array<Product>;
@@ -553,10 +553,10 @@ export type CategoryFilter = {
 };
 
 export type CategoryOrderByInput = {
-  categoryId?: Maybe<OrderByArg>;
   icon?: Maybe<OrderByArg>;
   id?: Maybe<OrderByArg>;
   name?: Maybe<OrderByArg>;
+  parentId?: Maybe<OrderByArg>;
   platformId?: Maybe<OrderByArg>;
   slug?: Maybe<OrderByArg>;
   type?: Maybe<OrderByArg>;
@@ -564,7 +564,6 @@ export type CategoryOrderByInput = {
 
 export type CategoryScalarWhereInput = {
   AND?: Maybe<Array<CategoryScalarWhereInput>>;
-  categoryId?: Maybe<NullableIntFilter>;
   children?: Maybe<CategoryFilter>;
   companies?: Maybe<CompanyFilter>;
   icon?: Maybe<NullableStringFilter>;
@@ -572,6 +571,7 @@ export type CategoryScalarWhereInput = {
   name?: Maybe<StringFilter>;
   NOT?: Maybe<Array<CategoryScalarWhereInput>>;
   OR?: Maybe<Array<CategoryScalarWhereInput>>;
+  parentId?: Maybe<NullableIntFilter>;
   platformId?: Maybe<IntFilter>;
   products?: Maybe<ProductFilter>;
   slug?: Maybe<StringFilter>;
@@ -780,7 +780,6 @@ export type CategoryUpsertWithWhereUniqueWithoutProductsInput = {
 
 export type CategoryWhereInput = {
   AND?: Maybe<Array<CategoryWhereInput>>;
-  categoryId?: Maybe<NullableIntFilter>;
   children?: Maybe<CategoryFilter>;
   companies?: Maybe<CompanyFilter>;
   icon?: Maybe<NullableStringFilter>;
@@ -789,6 +788,7 @@ export type CategoryWhereInput = {
   NOT?: Maybe<Array<CategoryWhereInput>>;
   OR?: Maybe<Array<CategoryWhereInput>>;
   parent?: Maybe<CategoryWhereInput>;
+  parentId?: Maybe<NullableIntFilter>;
   platform?: Maybe<PlatformWhereInput>;
   platformId?: Maybe<IntFilter>;
   products?: Maybe<ProductFilter>;
@@ -8158,7 +8158,7 @@ export type UpdateManyCardMutation = (
 
 export type CategoryFieldsFragment = (
   { __typename?: 'Category' }
-  & Pick<Category, 'type' | 'id' | 'platformId' | 'slug' | 'name' | 'icon' | 'categoryId'>
+  & Pick<Category, 'type' | 'id' | 'platformId' | 'slug' | 'name' | 'icon' | 'parentId'>
 );
 
 export type CategoryFragment = (
@@ -10165,7 +10165,7 @@ export const CategoryFieldsFragmentDoc = gql`
   slug
   name
   icon
-  categoryId
+  parentId
 }
     `;
 export const PlatformFieldsFragmentDoc = gql`

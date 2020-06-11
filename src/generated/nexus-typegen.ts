@@ -411,17 +411,16 @@ export interface NexusGenInputs {
     some?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
   }
   CategoryOrderByInput: { // input type
-    categoryId?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     icon?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     id?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     name?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
+    parentId?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     platformId?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     slug?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     type?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
   }
   CategoryScalarWhereInput: { // input type
     AND?: NexusGenInputs['CategoryScalarWhereInput'][] | null; // [CategoryScalarWhereInput!]
-    categoryId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
     children?: NexusGenInputs['CategoryFilter'] | null; // CategoryFilter
     companies?: NexusGenInputs['CompanyFilter'] | null; // CompanyFilter
     icon?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
@@ -429,6 +428,7 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['CategoryScalarWhereInput'][] | null; // [CategoryScalarWhereInput!]
     OR?: NexusGenInputs['CategoryScalarWhereInput'][] | null; // [CategoryScalarWhereInput!]
+    parentId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
     platformId?: NexusGenInputs['IntFilter'] | null; // IntFilter
     products?: NexusGenInputs['ProductFilter'] | null; // ProductFilter
     slug?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -613,7 +613,6 @@ export interface NexusGenInputs {
   }
   CategoryWhereInput: { // input type
     AND?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
-    categoryId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
     children?: NexusGenInputs['CategoryFilter'] | null; // CategoryFilter
     companies?: NexusGenInputs['CompanyFilter'] | null; // CompanyFilter
     icon?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
@@ -622,6 +621,7 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
     OR?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
     parent?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
+    parentId?: NexusGenInputs['NullableIntFilter'] | null; // NullableIntFilter
     platform?: NexusGenInputs['PlatformWhereInput'] | null; // PlatformWhereInput
     platformId?: NexusGenInputs['IntFilter'] | null; // IntFilter
     products?: NexusGenInputs['ProductFilter'] | null; // ProductFilter
@@ -5340,10 +5340,10 @@ export interface NexusGenRootTypes {
     userId?: string | null; // String
   }
   Category: { // root type
-    categoryId?: number | null; // Int
     icon?: string | null; // String
     id: number; // Int!
     name: string; // String!
+    parentId?: number | null; // Int
     platformId: number; // Int!
     slug: string; // String!
     type: string; // String!
@@ -6156,13 +6156,13 @@ export interface NexusGenFieldTypes {
     userId: string | null; // String
   }
   Category: { // field return type
-    categoryId: number | null; // Int
     children: NexusGenRootTypes['Category'][]; // [Category!]!
     companies: NexusGenRootTypes['Company'][]; // [Company!]!
     icon: string | null; // String
     id: number; // Int!
     name: string; // String!
     parent: NexusGenRootTypes['Category'] | null; // Category
+    parentId: number | null; // Int
     platform: NexusGenRootTypes['Platform']; // Platform!
     platformId: number; // Int!
     products: NexusGenRootTypes['Product'][]; // [Product!]!
