@@ -73,7 +73,7 @@ export const Products: React.FC<ProductsProps> = ({ deviceType, type, fetchLimit
   const [loadingMore, toggleLoading] = useState(false);
   const { data, error, loading, fetchMore } = useQuery(GET_VENDORS, {
     variables: {
-      // type: type,
+      type: type,
       text: router.query.text,
       category: router.query.category,
       offset: 0,
@@ -135,7 +135,11 @@ export const Products: React.FC<ProductsProps> = ({ deviceType, type, fetchLimit
                 <ProductCard
                   name={item.name}
                   image={item.thumbnailUrl}
-                  restaurantType={item?.categories.join(', ')}
+                  restaurantType={item?.categories
+                    .map((category) => {
+                      return category.name;
+                    })
+                    .join(', ')}
                   duration={formatTime(customerDistance())}
                   delivery={item.deliveryDetail.charge}
                   isFree={item.deliveryDetail.isFree}

@@ -422,9 +422,9 @@ export const Query = extendType({
               slug: type,
             },
             categories: {
-              every: {
-                name: {
-                  contains: category,
+              some: {
+                slug: {
+                  equals: category,
                 },
               },
             },

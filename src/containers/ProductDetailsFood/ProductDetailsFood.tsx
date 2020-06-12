@@ -80,10 +80,13 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({ product,
 
             <RestaurantOtherInfos>
               <InfoBlock>
-                <Label>
-                  <FormattedMessage id="cuisineText" defaultMessage="Cuisine" />
-                </Label>
-                <Infos>{data?.categories?.join(', ')}</Infos>
+                <Infos>
+                  {data?.categories
+                    ?.map((category) => {
+                      return category.name;
+                    })
+                    .join(', ')}
+                </Infos>
               </InfoBlock>
 
               <InfoBlock>

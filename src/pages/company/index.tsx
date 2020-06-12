@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Modal } from '@redq/reuse-modal';
 // import { withApollo } from 'helper/apollo';
-import { SEO } from 'Components/seo';
 import StoreNav from 'Components/StoreNav/StoreNav';
 import Carousel from 'Components/Carousel/Carousel';
 import Banner from 'containers/Banner/Banner';
 import Sidebar from 'containers/Sidebar/Sidebar';
-import Products from 'containers/Products/Products';
-import CartPopUp from 'containers/Cart/CartPopUp';
+import Products from 'containers/Products/ProductsFood';
 import {
   MainContentArea,
   SidebarSection,
@@ -18,14 +17,13 @@ import {
 } from 'styled/pages.style';
 // Static Data Import Here
 import OFFERS from 'data/offers';
-import BannerImg from 'image/grocery.png';
+import BannerImg from 'image/food.png';
 import storeType from 'constants/storeType';
-import { PlatformContext } from 'contexts/platform/platform.context';
-const PAGE_TYPE = 'grocery';
+import { SEO } from 'Components/seo';
 
-function HomePage({ deviceType }) {
-  const { state } = useContext(PlatformContext);
-  console.log(state);
+const PAGE_TYPE = 'restaurant';
+
+function HomePage({ deviceType, platform }) {
   const { query } = useRouter();
   const targetRef = React.useRef(null);
   React.useEffect(() => {
@@ -39,15 +37,15 @@ function HomePage({ deviceType }) {
 
   return (
     <>
-      <SEO title="Grocery - PickBazar" description="Grocery Details" />
+      <SEO title="Restaurant - PickBazar" description="Restaurant Details" />
       <Modal>
-        <Banner intlTitleId="groceriesTitle" intlDescriptionId="groceriesSubTitle" imageUrl={BannerImg} />
+        <Banner intlTitleId="foodsTitle" intlDescriptionId="foodsSubTitle" imageUrl={BannerImg} />
 
         {deviceType.desktop ? (
           <>
             <MobileCarouselDropdown>
               <StoreNav items={storeType} />
-              <Sidebar type={state?.slug} deviceType={deviceType} />
+              <Sidebar type={platform.slug} deviceType={deviceType} />
             </MobileCarouselDropdown>
             {/* <OfferSection>
               <div style={{ margin: '0 -10px' }}>
@@ -56,11 +54,11 @@ function HomePage({ deviceType }) {
             </OfferSection> */}
             <MainContentArea>
               <SidebarSection>
-                <Sidebar type={state?.slug} deviceType={deviceType} />
+                <Sidebar type={platform.slug} deviceType={deviceType} />
               </SidebarSection>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Products type={state?.slug} deviceType={deviceType} fetchLimit={16} />
+                  <Products type={platform.slug} deviceType={deviceType} fetchLimit={16} />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -68,18 +66,17 @@ function HomePage({ deviceType }) {
         ) : (
           <MainContentArea>
             <StoreNav items={storeType} />
-            <Sidebar type={state?.slug} deviceType={deviceType} />
+            <Sidebar type={platform.slug} deviceType={deviceType} />
             {/* <OfferSection>
               <div style={{ margin: '0 -10px' }}>
                 <Carousel deviceType={deviceType} data={OFFERS} />
               </div>
             </OfferSection> */}
             <ContentSection style={{ width: '100%' }}>
-              <Products type={state?.slug} deviceType={deviceType} fetchLimit={16} />
+              <Products type={platform.slug} deviceType={deviceType} fetchLimit={16} />
             </ContentSection>
           </MainContentArea>
         )}
-        <CartPopUp deviceType={deviceType} />
       </Modal>
     </>
   );

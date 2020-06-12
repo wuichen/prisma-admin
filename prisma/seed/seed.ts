@@ -138,9 +138,12 @@ async function seedData() {
       const categories = [];
       for (let j = 0; j < element.categories.length; j++) {
         const category = element.categories[j];
-        const existItem = db.categories.find((catgory) => category.slug === category);
+        const existItem = db.categories.find((existCategory) => {
+          console.log(existCategory.slug, category);
+          return existCategory.slug.includes(category);
+        });
         if (existItem) {
-          categories.push(existItem);
+          categories.push({ slug: existItem.slug });
         }
       }
       const ownerId = db.users[Math.floor(Math.random() * db.users.length)].id;
@@ -201,7 +204,6 @@ async function seedData() {
             staffs: true,
           },
         });
-        console.log(company);
         for (let index = 0; index < company.products.length; index++) {
           const product = company.products[index];
           db.products.push(product);
@@ -236,7 +238,6 @@ async function seedData() {
           }
         }
       }
-      console.log(categories);
       const company = createOrConnectCompany(element);
       const mutation = {
         data: {

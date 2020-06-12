@@ -11,6 +11,7 @@ import App from 'next/app';
 import { AuthProvider } from 'contexts/auth/auth.provider';
 import { StickyProvider } from 'contexts/app/app.provider';
 import { SearchProvider } from 'contexts/search/search.provider';
+import { PlatformProvider } from 'contexts/platform/platform.provider';
 import { HeaderProvider } from 'contexts/header/header.provider';
 import { LanguageProvider } from 'contexts/language/language.provider';
 
@@ -36,6 +37,9 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from 'theme';
 import AppLayout from 'containers/LayoutContainer/AppLayout';
 import { GlobalStyle } from 'styled/global.style';
+import request from 'graphql-request';
+import { FindOnePlatformDocument } from 'generated';
+import { print } from 'graphql/language/printer';
 
 // Language translation Config
 const messages = {
@@ -47,7 +51,7 @@ const messages = {
   he: localIl,
 };
 // need to provide types
-const ExtendedApp: NextPage<any> = ({ Component, pageProps, userAgent, locale, query, pathname, domain }) => {
+const ExtendedApp: NextPage<any> = ({ Component, pageProps, userAgent, locale, query, pathname, platform }) => {
   const deviceType = useDeviceType(userAgent);
   const ConditionalLayout = ({ children }) => {
     if (pathname) {
@@ -65,6 +69,7 @@ const ExtendedApp: NextPage<any> = ({ Component, pageProps, userAgent, locale, q
       </ThemeProvider>
     );
   };
+
   return (
     <>
       <Head>
@@ -72,21 +77,23 @@ const ExtendedApp: NextPage<any> = ({ Component, pageProps, userAgent, locale, q
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       </Head>
-      <LanguageProvider messages={messages} initLocale={locale}>
-        <CartProvider>
-          <SearchProvider query={query}>
-            <HeaderProvider>
-              <StickyProvider>
-                <AuthProvider>
-                  <ConditionalLayout>
-                    <Component {...pageProps} deviceType={deviceType} />
-                  </ConditionalLayout>
-                </AuthProvider>
-              </StickyProvider>
-            </HeaderProvider>
-          </SearchProvider>
-        </CartProvider>
-      </LanguageProvider>
+      <PlatformProvider platform={platform}>
+        <LanguageProvider messages={messages} initLocale={locale}>
+          <CartProvider>
+            <SearchProvider query={query}>
+              <HeaderProvider>
+                <StickyProvider>
+                  <AuthProvider>
+                    <ConditionalLayout>
+                      <Component {...pageProps} deviceType={deviceType} />
+                    </ConditionalLayout>
+                  </AuthProvider>
+                </StickyProvider>
+              </HeaderProvider>
+            </SearchProvider>
+          </CartProvider>
+        </LanguageProvider>
+      </PlatformProvider>
     </>
   );
 };
@@ -95,30 +102,40 @@ ExtendedApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   const { req, query, pathname } = appContext.ctx;
   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
-  const { locale } = parseCookies(req);
-  const domain = getSubdomain(req);
-  return { ...appProps, userAgent, query, locale, pathname, domain };
+  const { locale, domain } = parseCookies(req);
+
+  // const domain = getSubdomain(req);
+  const platform = await request(process.env.API_URL, print(FindOnePlatformDocument), {
+    where: {
+      slug: domain ? domain : 'grocery',
+    },
+  });
+  if (platform) {
+    return { ...appProps, userAgent, query, locale, pathname, platform: platform.findOnePlatform };
+  } else {
+    return { ...appProps, userAgent, query, locale, pathname };
+  }
 };
 
 export default withApollo(ExtendedApp);
 
-export function getSubdomain(req: any) {
-  let host;
-  let sub;
-  if (req && req.headers.host) {
-    host = req.headers.host;
-  }
-  if (typeof window !== 'undefined') {
-    host = window.location.host;
-  }
-  if (host) {
-    if (host.includes('localhost')) {
-      return 'grocery';
-    }
-    sub = host.split('mercy-app')[0];
-    if (sub) {
-      return sub.split('.')[0];
-    }
-  }
-  return 'grocery';
-}
+// export function getSubdomain(req: any) {
+//   let host;
+//   let sub;
+//   if (req && req.headers.host) {
+//     host = req.headers.host;
+//   }
+//   if (typeof window !== 'undefined') {
+//     host = window.location.host;
+//   }
+//   if (host) {
+//     if (host.includes('localhost')) {
+//       return 'restaurant';
+//     }
+//     sub = host.split('mercy-app')[0];
+//     if (sub) {
+//       return sub.split('.')[0];
+//     }
+//   }
+//   return 'restaurant';
+// }
